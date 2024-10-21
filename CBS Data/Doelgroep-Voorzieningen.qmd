@@ -1,0 +1,136 @@
+---
+title: "Doelgroep en Voorzieningen"
+author: "Ward B. Eiling"
+date: "Oct 21, 2024"
+date-format: long
+format: 
+  pdf:
+    papersize: a4
+    # keep-tex: true
+    toc: true
+    number-sections: true
+    self-contained: true
+    colorlinks: true
+    indent: true
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+    mainfont: Latin Modern Roman
+    sansfont: Latin Modern Roman
+    linestretch: 2
+    fontsize: 12pt
+link-citations: true
+execute:
+  warning: false
+  message: false
+---
+
+\newpage
+
+```{r}
+#| label: load_libraries
+#| echo: false
+
+library(readxl)
+library(tidyverse)
+library(sf)
+library(readr)
+```
+
+## Doelgroep
+
+### Hoe groot is de doelgroep ongeveer?
+
+De doelgroep bestaat uit meisjes in de wijk Zuilen. Ik heb bevestigd dat de wijk Zuilen uit 7 Buurten bestaat. Met behulp van deze informatie en de CBS data kunnen we een inschatting maken van de groote van de doelgroep in 2024 ([Kerncijfers wijken en buurten](https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/wijk-en-buurtstatistieken))
+
+```{r}
+#| label: doelgroep_grootte
+#| echo: false
+
+data <- read_excel("CBS-Utrecht-kwb-2024.xlsx")
+regio_keep <- c("Utrecht", "Wijk 02 Noordwest", "Julianapark en omgeving", "Elinkwijk en omgeving", "Prins Bernhardplein en omgeving", "Geuzenwijk", "Schaakbuurt en omgeving", "Queeckhovenplein en omgeving", "Zuilen-Noord")
+
+data_fil <- data %>%
+  filter(regio %in% regio_keep) %>%
+  select(regio, a_man, a_vrouw, a_inw, a_00_14, a_15_24)
+
+# head(data_fil, 10)
+  
+# add row for totaal in de 7 buurten
+data_fil_zuilen <- data_fil[3:9,]
+data_fil_zuilen <- rbind(data_fil_zuilen, c("Zuilen Totaal", colSums(data_fil_zuilen[,2:6])))
+# make columns 2 to 6 numeric
+data_fil_zuilen[,2:6] <- sapply(data_fil_zuilen[,2:6], as.numeric)
+data_fil_zuilen <- data_fil_zuilen %>%
+  mutate(frac_vrouw = (a_vrouw / (a_man + a_vrouw)),
+         V_0.14 = frac_vrouw * a_00_14,
+         V_15.24 = frac_vrouw * a_15_24) %>%
+  select(-c(frac_vrouw, a_man))
+         
+# head(data_fil_zuilen, 10)
+
+knitr::kable(data_fil_zuilen, caption = "Data van de 7 buurten in de wijk Zuilen", digits = 0, )
+```
+
+
+Op basis van deze data van 2024 kunnen we een aantal observaties maken m.b.t. de wijk Zuilen:
+
+- De fractie vrouwen in de wijk varieert per buurt tussen de 0.50 en 0.53 met een gemiddelde van 0.516.
+- De totale populatie in de wijk is 24.100 inwoners.
+- De populatie van meisjes in de wijk met de leeftijd 0-14 jaar is 1835 en met de leeftijd 15-24 jaar is 1734 (dit is op basis van een schatting van de fractie vrouwen in de wijk).
+
+### Beperkingen
+
+Er zitten wel beperkingen aan het gebruik van deze open data. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar.
+
+### Voorzieningen
+
+De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/table?dl=AE6FE) van de kerncijfers wijken en buurten van het CBS bevat ook informatie over de voorzieningen in de wijk Zuilen:
+
+- Afstand tot grote supermarkt
+- Afstand tot café
+- Afstand tot restaurant
+- Afstand tot bibliotheek
+- Afstand tot zwembad
+- Afstand to bioscoop
+
+## Voorzieningen Geschikt voor Nederland 3D
+
+### Sportscholen
+
+Het is wellicht ook interessant om te kijken naar de sportscholen in de wijk Zuilen en om hierbij het onderscheid te maken tussen sportscholen die (1) gemengd zijn, (2) alleen voor mannen en (3) alleen voor vrouwen. Na het vinden van deze sportscholen kunnen we deze linken aan het BAG-register om vervolgens ze gekleurd weer te geven in Nederland3D.
+
+Ik heb op google maps de volgende zoektermen gebruikt: "sportschool", "sporten".
+
+Het is opvallend dat er redelijk weinig sportscholen zijn in Zuilen en dat er juist een aantal net over de grens van de wijk zijn (bijvoorbeeld in Nieuw Engeland, Schepenbuurt zijn er 5 sportscholen). Een van deze sportsscholen, [ALLIN Fitness](https://allinnfitness.nl/sportschool-utrecht/) zegt in Zuilen te zitten, maar dit is volgens de buurtgrenzen niet het geval.
+
+```{r}
+#| label: sportscholen
+#| echo: false
+
+Sportscholen_Zuilen <- read_delim("Sportscholen-Zuilen.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+Sportscholen_Zuilen <- Sportscholen_Zuilen %>%
+  select(-c(Adres, Opmerking))
+
+knitr::kable(Sportscholen_Zuilen, caption = "Sportscholen in de wijk Zuilen", digits = 0)
+```
+
+Van deze sportscholen/sportvereningen is "BeachVolleyball Utrecht" dicht tot april en zijn er drie sportscholen die vooral/alleen richten op personal training, wat me niet erg relevant lijkt voor dit vraagstuk. Als we deze weghalen houden we over:
+
+```{r}
+#| label: sportscholen2
+#| echo: false
+
+verwijder_sportschool <- c("Domcity Personal Training - Personal Trainer Utrecht", "Lucia Personal Training", "BeachvolleybalUtrecht")
+
+Sportscholen_Zuilen_fil <- Sportscholen_Zuilen %>%
+  filter(!Naam %in% verwijder_sportschool)
+
+knitr::kable(Sportscholen_Zuilen_fil, caption = "Relevante Sportscholen in de wijk Zuilen", digits = 0)
+```
+
+
+

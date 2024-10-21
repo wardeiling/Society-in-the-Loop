@@ -1,7 +1,7 @@
 ---
 title: "Bronnen Onderzoek: Data Inventarisatie"
 author: "Ward B. Eiling"
-date: "Oct 14, 2024"
+date: "Oct 21, 2024"
 date-format: long
 format: 
   pdf:
@@ -32,7 +32,7 @@ link-citations: true
 
 [Utrecht in Cijfers](https://utrecht.incijfers.nl) geeft statistieken, maar niet op het niveau van Zuilen. En ook niet met betrekking tot fysieke voorzieningen.
 
-[Buurten in Cijfers](https://utrecht.incijfers.nl/buurten-in-cijfers) geeft statistieken op het niveau van buurten van Zuilen. Als ik het goed heb ([wikipedia kaart](https://nl.wikipedia.org/wiki/Zuilen_(Utrecht)#/media/Bestand:Map_-_NL_-_Utrecht_-_Wijk_02_Noordwest_-_Subwijk_Zuilen.svg)), bestaat de sub-wijk Zuilen uit 7 buurten: Zuilen-noord, Queeckhovenplein e.o., PrBernhardpl. e.o. Demkageb, Schaakbuurt e.o., Elinkwijk e.o., Julianapark e.o., Geuzenwijk, de Driehoek.
+[Buurten in Cijfers](https://utrecht.incijfers.nl/buurten-in-cijfers) geeft statistieken op het niveau van buurten van Zuilen. Als ik het goed heb ([wikipedia kaart](https://nl.wikipedia.org/wiki/Zuilen_(Utrecht)#/media/Bestand:Map_-_NL_-_Utrecht_-_Wijk_02_Noordwest_-_Subwijk_Zuilen.svg)), bestaat de sub-wijk Zuilen uit 7 buurten: Zuilen-noord, Queeckhovenplein e.o., PrBernhardpl. e.o. Demkageb, Schaakbuurt e.o., Elinkwijk e.o., Julianapark e.o., Geuzenwijk, de Driehoek. Dit heb ik bevestigd met de kaarten van de Gemeente Utrecht ([Kaart Gemeente Utrecht](https://www.utrecht.nl/fileadmin/uploads/documenten/bestuur-en-organisatie/publicaties/onderzoek-en-cijfers/indeling-wijken-buurten-straten/2017-07-Kaart-Utrecht-met-wijk-subwijk-buurt-en-subbuurtindeling.pdf)).
 
 ![Buurten in de wijk Utrecht Noordwest](Pasted%20image%2020241014121235.png)
 
