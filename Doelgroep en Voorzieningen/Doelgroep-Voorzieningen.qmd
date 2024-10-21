@@ -49,7 +49,11 @@ De doelgroep bestaat uit meisjes in de wijk Zuilen. Ik heb bevestigd dat de wijk
 #| label: doelgroep_grootte
 #| echo: false
 
-data <- read_excel("CBS-Utrecht-kwb-2024.xlsx")
+# go back to root directory from "Doelgroep en Voorzieningen" and then go to "CBS data"
+setwd("../")
+data <- read_excel("CBS Data/CBS-Utrecht-kwb-2024.xlsx")
+
+# Filter data for Zuilen
 regio_keep <- c("Utrecht", "Wijk 02 Noordwest", "Julianapark en omgeving", "Elinkwijk en omgeving", "Prins Bernhardplein en omgeving", "Geuzenwijk", "Schaakbuurt en omgeving", "Queeckhovenplein en omgeving", "Zuilen-Noord")
 
 data_fil <- data %>%
