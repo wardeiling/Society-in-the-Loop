@@ -1,0 +1,77 @@
+---
+title: "Bronnen Onderzoek"
+author: "Ward B. Eiling"
+date: "Oct 14, 2024"
+date-format: long
+format: 
+  pdf:
+    papersize: a4
+    # keep-tex: true
+    toc: true
+    number-sections: true
+    self-contained: true
+    colorlinks: true
+    indent: true
+    # header-includes:
+    #   - \usepackage{fancyhdr}
+    #   - \usepackage{amsmath}
+    #   - \usepackage{float}
+    geometry:
+      - top=2.5cm
+      - bottom=2.5cm
+      - left=2.5cm
+      - right=2.5cm
+    mainfont: Latin Modern Roman
+    sansfont: Latin Modern Roman
+    linestretch: 2
+    fontsize: 12pt
+link-citations: true
+---
+
+\newpage
+
+## Bronnen gestuurd door Floris
+
+### Utrecht en Buurten in Cijfers
+
+[Utrecht in Cijfers](https://utrecht.incijfers.nl) geeft statistieken, maar niet op het niveau van Zuilen. En ook niet met betrekking tot fysieke voorzieningen.
+
+[Buurten in Cijfers](https://utrecht.incijfers.nl/buurten-in-cijfers) geeft statistieken op het niveau van buurten van Zuilen. Als ik het goed heb ([wikipedia kaart](https://nl.wikipedia.org/wiki/Zuilen_(Utrecht)#/media/Bestand:Map_-_NL_-_Utrecht_-_Wijk_02_Noordwest_-_Subwijk_Zuilen.svg)), bestaat de sub-wijk Zuilen uit 7 buurten: Zuilen-noord, Queeckhovenplein e.o., PrBernhardpl. e.o. Demkageb, Schaakbuurt e.o., Elinkwijk e.o., Julianapark e.o., Geuzenwijk, de Driehoek.
+
+![Buurten in de wijk Utrecht Noordwest](Pasted%20image%2020241014121235.png)
+
+Als ik de buurten samenvoeg tot een aangepaste regio Zuilen (optie in Utrecht in Cijfers), worden niet alle figuren weergegeven en wordt vaak "onbekende waarde" weergegeven. Misschien door missende data o.i.d.. Wel word duidelijk dat ...
+
+-   Lagere veiligheid vergeleken met heel Utrecht: gemiddeld meer geweld, woninginbraken, autokraken en geluidshinder
+
+![Statistieken over Veiligheid van Utrecht in Cijfers](Pasted%20image%2020241014122354.png)
+
+Over specifieke buurten is meer data beschikbaar. Neem bijvoorbeeld Zuilen-noord. Hier is informatie te vinden over
+
+-   \% inwoners met loopafstand tot OV-halte ([link](https://utrecht.incijfers.nl/dashboard/?short=hzsvi))
+-   algemeen buurtoordeel is lager in Zuilen-noord dan heel Utrecht ([link](https://utrecht.incijfers.nl/dashboard/?short=ya4hu))
+-   Meer inwoners voelen zich vaak onveilig in eigen buurt ([link](https://utrecht.incijfers.nl/dashboard/?short=9hvvj)), alhoewel objectieve statistieken ongeveer gelijke veiligheid lijken aan te tonen. Maar op basis van de statistieken is niet te concluderen of verschillen significant zijn en wat de sample size is.
+
+### Gezondheidsmonitor
+
+[Samenvatting Jeugdmonitor Utrecht en Gezondheidsmonitor (volksgezondheidsmonitor.nl)](https://volksgezondheidsmonitor.nl/uitgaven/samenvatting-gezondheidsmonitors-kinderen-jongeren) betreft open data gerelateerd aan gezondheidsmonitor van de Jeugd in Utrecht. Helaas is dit geen ruwe data en is dit ook niet op buurt/wijk niveau. Het kan alleen inzicht geven in gemiddeldes (bijv. % die geluk ervaart) over de hele stad.
+
+[Noordwest \| Volksgezondheidsmonitor](https://volksgezondheidsmonitor.nl/wijken-utrecht/noordwest) betreft iets specifiekere data
+
+-   wijkdata wijkdoen geeft interessante informatie m.b.t. mentale gezondheid, lachgasgebruik, overgewicht jeugd over 16-25 jarigen in de wijk Noordwest. Helaas is dit niet op het niveau van Zuilen en/of de buurten. Maar dit betekent wel dat er data beschikbaar is.
+-   wijkgezondheidsprofiel geeft informatie weer op niveau van (1) Zuilen-west en (2) Zuilen-noord en -oost. Helaas gaat dit niet over de doelgroep (jongeren).
+-   wijkgesprek gaat niet om de doelgroep specifiek en betreft ook de hele wijk Noordwest.
+
+### Scheidslijnen Rapport over Kwetsbaarheid
+
+[Scheidslijnen in Utrecht \| Utrecht Monitor (utrecht-monitor.nl)](https://utrecht-monitor.nl/scheidslijnen-utrecht) is een rapport over verschillende onderwerpen die te maken hebben met kwetsbaarheid - [algemene kwetsbaarheid](https://utrecht-monitor.nl/scheidslijnen-utrecht/11-waar-zien-we-de-grootste-kwetsbaarheid): Utrechtse buurten met een lage score op sociaal-economische status, leefbarometer en stapelingsanalyse. Hiertoe behoren 4 buurten in Zuilen: (1) Queeckhovenplein e.o., (2) PrBernhardpl. e.o. Demkageb, (3) Schaakbuurt e.o. en (4) Geuzenwijk, de Driehoek. - [opleiding en vaardigheden](https://utrecht-monitor.nl/scheidslijnen-utrecht/23-opleiding-en-vaardigheden): relatief laag (30-35%) havo/vwo advies vergeleken met andere wijken - [veiligheidsbeleving](https://utrecht-monitor.nl/scheidslijnen-utrecht/26-veiligheidsbeleving): 37% en 27% onveiligheidsbeleving in Zuilen-noord/-oost en Zuilen-west respectievelijk. Dit is relatief hoog in vergelijking met andere sub-wijken
+
+## Nederland3D en Utrecht3D
+
+De ingebouwde "lagen" in [Nederland3D](https://netherlands3d.eu/) zijn erg beperkt en niet bruikbaar voor het huidige vraagstuk. Hetzelfde is het geval in [Utrecht3D](https://3d.utrecht.nl/app), alhoewel hier een aantal themakaarten (e.g., hitte) ingebouwd beschikbaar zijn. Voor het maken van de gewenste visualisaties zal het dus erg belangrijk zijn om toegang te krijgen tot nieuwe databronnen die kunnen gelinked worden of met een BAG-id (daarmee kunnen gebouwen gekleurd worden met verloop) of met GPS-coördinaten.
+
+## CBS data
+
+Bij het CBS zijn de meeste cijfers op gemeente/stad niveau beschikbaar (bijv. https://www.cbs.nl/nl-nl/visualisaties/cijfers-op-de-kaart). Er is wel data op buurt/wijk niveau beschikbaar (https://www.cbs.nl/nl-nl/reeksen/publicatie/kerncijfers-wijken-en-buurten), maar dit is niet erg detailleerd. Vooral bevolkingscijfers. Er staan bijvoorbeeld ook afstanden in tot ziekenhuis of grote supermarkt, maar deze data missen helaas voor 2023 en 2024 voor de specifieke wijk waar wij geïnteresseerd in zijn.
+
+Verder heb ik nog gezocht in het [open data portaal](https://opendata.cbs.nl/statline/#/CBS/nl/navigatieScherm/thema) van het CBS, waar ik wel data vond m.b.t. nabijheid voorzieningen voor de buurten/wijken van Utrecht ([Utrecht](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/table?dl=2C08E) , [Zuilen](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/table?dl=AE6FE), zie Nederland regionaal \> Ruimtelijke gegevens \> Nabijheid van voorzieningen). Dit betreft mogelijk interessante data, aangezien het omvangt (1) afstand tot Horeca/restaurants/cafes, (2) afstand tot zwembad, (3) afstand tot bioscoop, (4) afstand tot grote supermarkt. Wellicht zijn een aantal hiervan relevant voor de doelgroep. Andere data (bijv. huiselijk geweld) zijn niet beschikbaar op wijk/buurt niveau ([Huiselijk-geweld](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84851NED/table?dl=AE704)). Wel is er informatie over jongeren met jeugdzorg in natura per wijk ([Jeugdzorg-Utrecht](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85685NED/table?dl=AE708), zie Nederland regionaal \> Gezondheid en welzijn \> Gezondheid, leefstijl, zorggebruik \> Jeugdzorg \> Jeugdzorg; wijken), wat misschien gebruikt kan worden voor context-informatie voor de doelgroep.
