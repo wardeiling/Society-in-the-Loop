@@ -1,5 +1,5 @@
 ---
-title: "Bronnen Onderzoek"
+title: "Bronnen Onderzoek: Data Inventarisatie"
 author: "Ward B. Eiling"
 date: "Oct 14, 2024"
 date-format: long
@@ -12,10 +12,6 @@ format:
     self-contained: true
     colorlinks: true
     indent: true
-    # header-includes:
-    #   - \usepackage{fancyhdr}
-    #   - \usepackage{amsmath}
-    #   - \usepackage{float}
     geometry:
       - top=2.5cm
       - bottom=2.5cm
@@ -30,7 +26,7 @@ link-citations: true
 
 \newpage
 
-## Bronnen gestuurd door Floris
+## Bronnen Gestuurd door Floris
 
 ### Utrecht en Buurten in Cijfers
 
