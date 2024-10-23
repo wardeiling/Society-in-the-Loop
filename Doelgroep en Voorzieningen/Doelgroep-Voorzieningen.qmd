@@ -8,6 +8,7 @@ format:
     papersize: a4
     # keep-tex: true
     toc: true
+    toc-depth: 5
     number-sections: true
     self-contained: true
     colorlinks: true
@@ -91,28 +92,30 @@ In deze tabel refereren de kolommen als volgt:
 
 Op basis van deze data van 2024 kunnen we een aantal observaties maken m.b.t. de wijk Zuilen:
 
-- De fractie vrouwen in de wijk varieert per buurt tussen de 0.50 en 0.53 met een gemiddelde van 0.516.
-- De totale populatie in de wijk is 24.100 inwoners.
-- De populatie van meisjes in de wijk met de leeftijd 0-14 jaar is 1835 en met de leeftijd 15-24 jaar is 1734 (dit is op basis van een schatting van de fractie vrouwen in de wijk).
+-   De fractie vrouwen in de wijk varieert per buurt tussen de 0.50 en 0.53 met een gemiddelde van 0.516.
+-   De totale populatie in de wijk is 24.100 inwoners.
+-   De populatie van meisjes in de wijk met de leeftijd 0-14 jaar is 1835 en met de leeftijd 15-24 jaar is 1734 (dit is op basis van een schatting van de fractie vrouwen in de wijk).
 
 ### Beperkingen
 
-Er zitten wel beperkingen aan het gebruik van deze open data. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar.
+Er zitten wel beperkingen aan het gebruik van deze open data. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar. Deze informatie is wel te achterhalen (bijvoorbeeld bij registers van de gemeente Utrecht), maar is niet openbaar beschikbaar.
 
 ### Voorzieningen
 
 De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/table?dl=AE6FE) van de kerncijfers wijken en buurten van het CBS bevat ook informatie over de voorzieningen in de wijk Zuilen:
 
-- Afstand tot grote supermarkt
-- Afstand tot café
-- Afstand tot restaurant
-- Afstand tot bibliotheek
-- Afstand tot zwembad
-- Afstand to bioscoop
+-   Afstand tot grote supermarkt
+-   Afstand tot café
+-   Afstand tot restaurant
+-   Afstand tot bibliotheek
+-   Afstand tot zwembad
+-   Afstand to bioscoop
 
 ## Voorzieningen Geschikt voor Nederland 3D
 
-### Sportscholen
+### Voorbeeld: Sportscholen
+
+#### Data Verzamelen
 
 Het is wellicht ook interessant om te kijken naar de sportscholen in de wijk Zuilen en om hierbij het onderscheid te maken tussen sportscholen die (1) gemengd zijn, (2) alleen voor mannen en (3) alleen voor vrouwen. Na het vinden van deze sportscholen kunnen we deze linken aan het BAG-register om vervolgens ze gekleurd weer te geven in Nederland3D.
 
@@ -146,8 +149,7 @@ Sportscholen_Zuilen_fil <- Sportscholen_Zuilen %>%
 knitr::kable(Sportscholen_Zuilen_fil, caption = "Relevante Sportscholen in de wijk Zuilen", digits = 0)
 ```
 
-
-### Linken adressen aan het BAG-register
+#### Linken adressen aan het BAG-register
 
 Door te addressen in te voeren in de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer) kunnen we de BAG-pan id's van de sportscholen vinden. Helaas is hierbij een probleem dat de volgende sportvereningen allen hetzelfde adres en dus ook BAG-id delen:
 
@@ -156,15 +158,75 @@ Door te addressen in te voeren in de [BAG Viewer](https://bagviewer.kadaster.nl/
 -   H.M.S
 -   Handbal Domstad
 
-Dus als we iets willen inkleuren hier, zal het of 1 vereniging moeten zijn of een gemiddelde. Maar beiden lijken mij ver van optimaal. Desalnietemin, om de visualizatie weer te geven in Nederland3D, verwijder ik nu H.M.S. en Zuilense Tennis Club, zodat alleen Handbal Domstad gelinked is aan dit BAG-pand id. Dit is namelijk de enige entry die gescheiden heeft.
+Dus als we iets willen inkleuren hier, zal het of 1 vereniging moeten zijn of een gemiddelde. Maar beiden lijken mij ver van optimaal. Desalnietemin, om de visualizatie weer te geven in Nederland3D, verwijder ik nu H.M.S. en Zuilense Tennis Club, zodat alleen Handbal Domstad gelinked is aan dit BAG-pand id. Dit is namelijk de enige entry die gescheiden heeft. Na het verzmalen van deze data, is het belangrijk vast te stellen wat voor informatie de Nederland3D en/of Utrecht3D omgeving accepteerd.
 
-De gecreëerde dataset is te vinden in deze map als `Netherlands3D-sportscholen.csv`. 
-
-### In Nederland3D
+#### Nederland3D en Utrecht3D
 
 Netherlands3D accepteerd een dataset of link in "GeoJSON of WFS formaat" ([Netherlands3D](https://netherlands3d.eu/#wat-is-netherlands3d)). En de "Gebouwen kleuren" functie in Netherlands3D ...
 
 > "Maakt het mogelijk om een CSV bestand in te laden met daarin een kolom BAG-Pand id's en een kolom kenmerken. De BAG Pand id's uit de CSV worden gebruikt om een koppeling met de 3D BAG paneden uit de viewer te maken om vervolgens het bijbehorende kernmerk te gebruiken om panden te kleuren. Aan elk onderscheidend kenmerk wordt een kleur toegewezen welke zichtbaar wordt gemaakt in de viewer." (instellingen $\to$ functionaliteiten $\to$ Gebouwen kleuren)
 
+Helaas is hier geen voorbeeld beschikbaar van wat de data format kan zijn. Als ik bijvoorbeeld een kolom "BAG-Pand id's" en een kolom "Kenmerken" heb, geeft hij geen verloop in kleuren weer.
 
+Utrecht3D is duidelijker en geeft een concreet voorbeeld, waaruit blijkt dat de kolom naam "BAG_ID" en of "Kleurcode"/"Kenmerk" mogelijk zijn en verder geeft dit ook de optie om een kolom met een andere naam te kiezen voor zowel het BAG-pand id als een kenmerk (voor het verloop van kleur) of direct een kleurcode.
 
+##### Dataset 1: Kleurcode voor Vooral Mannen of Vrouwen
+
+Allereerst heb ik een dataset aangemaakt met een kleurcode voor of er vooral mannen of vrouwen (in de fotos zichtbaar) sporten. Deze gecreëerde dataset is te vinden in deze map als `sportscholen-Utrecht3D-kleurencode.csv`. De dataset is als volgt:
+
+```{r}
+#| label: sportscholen_kleurencode
+#| echo: false
+
+sportscholen_kleurencode <- read_delim("sportscholen-Utrecht3D-kleurencode.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+knitr::kable(sportscholen_kleurencode, caption = "Sportscholen in de wijk Zuilen met kleurcode", digits = 0)
+```
+
+De resultaten van deze dataset (met specifieke hexidecimale kleurencodes) zijn te zien in @fig-kleurcode. Hierin is groen voor onduidelijk, blauw voor vooral mannen en roze voor vooral vrouwen. Van vooral vrouwen is er bijvoorbeeld in het midden onder een pand zichtbaar en bovenin is een groen pand te zien.
+
+![Utrecht3D - Sportscholen in Zuilen, Vooral Mannen of Vrouwen](images/3D_utrecht_schermafbeelding_kleurcode.png){#fig-kleurcode}
+
+##### Dataset 2: Numerieke Waarde voor Gescheiden of Gemengd
+
+Ten tweede heb ik een dataset aangemaakt met een kenmerk met een numerieke waarde, voor het gebruik van een kleurverloop, waar ik sportscholen met vrouwen en mannen gemengd een "1" heb gegeven en sportscholen met gescheiden (teams) een "2". Hier is het verloop van kleuren natuurlijk niet echt gebruikt, aangezien we alleen maar 1 en 2 gebruiken voor categorisatie. Maar hierbij kan ook gedacht worden aan waardes zoals aantal personen die een plek binnen een tijd bezoekt. Deze gecreëerde dataset is te vinden in deze map als `sportscholen-Utrecht3D-numeriekewaarde.csv`. De dataset is als volgt:
+
+```{r}
+#| label: sportscholen_numeriek
+#| echo: false
+
+sportscholen_numeriek <- read_delim("sportscholen-Utrecht3D-numeriekewaarde.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+knitr::kable(sportscholen_numeriek, caption = "Sportscholen in de wijk Zuilen met numerieke waarde", digits = 0)
+```
+
+De resultaten van deze tweede dataset (met numerieke waardes voor een kenmerk) zijn te zien in @fig-numeriek. Hier zijn sportscholen met gemengde teams in het blauw te zien en sportscholen met gescheiden teams in het rood. Aan de bovenkant is bijvoorbeeld de sportvereniging Handbal Domstad in het rood te zien, wat aangeeft dat hier gescheiden teams sporten.
+
+![Utrecht3D, Sportscholen in Zuilen, Gemengd of Gescheiden](images/3D_utrecht_schermafbeelding.png){#fig-numeriek}
+
+##### Conclusie
+
+Wat in het algemeen duidelijk wordt is dat zichtbaarheid van de gekleurde objecten gerelateerd aan een BAG-id niet altijd optimaal is. Dit komt onder andere door alle andere objecten, zoals bomen en ander groen, die ook in de visualisatie zichtbaar zijn. Dit maakt het blijkbaar erg belangrijk dat de kleuren erg opvallen. Verder brengt dit ook de vraag of een 3D omgeving nodig is voor vraagstukken als deze, aangezien weergave in een 2D kaart simpeler en wellicht ook duidelijker is.
+
+### Scholen in Zuilen
+
+#### Basisscholen
+
+Volgens [zoiszuilen](https://zoiszuilen.nl/home/over-zuilen/) kent Zuilen de volgende basisscholen:
+
+-   Christelijke basisschool De kleine Vliegenier
+-   Christelijke basisschool de Piramide loc. Bisschopsplein
+-   Katholieke basisschool Ludgerus
+-   Openbare basisschool de Cirkel
+-   Openbare basisschool Prinses Margriet
+-   Islamitische basisschool Aboe Da’oed
+-   Katholieke basisschool Wijzer aan de Vecht
+-   Speciaal basisonderwijs Belle van Zuylen
+-   Lux. Speciaal onderwijs voor ZML-leerlingen
+-   Brede school
+
+#### Voortgezet Onderwijs
+
+...
