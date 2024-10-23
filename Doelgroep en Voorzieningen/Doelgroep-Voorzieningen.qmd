@@ -43,7 +43,7 @@ library(readr)
 
 ### Hoe groot is de doelgroep ongeveer?
 
-De doelgroep bestaat uit meisjes in de wijk Zuilen. Ik heb bevestigd dat de wijk Zuilen uit 7 Buurten bestaat. Met behulp van deze informatie en de CBS data kunnen we een inschatting maken van de groote van de doelgroep in 2024 ([Kerncijfers wijken en buurten](https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/wijk-en-buurtstatistieken))
+De doelgroep bestaat uit meisjes in de wijk Zuilen. Op basis van [een kaart](https://www.utrecht.nl/fileadmin/uploads/documenten/bestuur-en-organisatie/publicaties/onderzoek-en-cijfers/indeling-wijken-buurten-straten/2017-07-Kaart-Utrecht-met-wijk-subwijk-buurt-en-subbuurtindeling.pdf) van de gemeente Utrecht heb ik bevestigd dat de wijk Zuilen uit 7 Buurten bestaat. Met behulp van deze informatie en de CBS data kunnen we een inschatting maken van de groote van de doelgroep in 2024 ([Kerncijfers wijken en buurten](https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/wijk-en-buurtstatistieken))
 
 ```{r}
 #| label: doelgroep_grootte
@@ -74,10 +74,20 @@ data_fil_zuilen <- data_fil_zuilen %>%
   select(-c(frac_vrouw, a_man))
          
 # head(data_fil_zuilen, 10)
+colnames_data <- c("Regio", "vrouwen", "inwoners", "0-14", "15-24", "vrouwen 0-14", "vrouwen 15-24")
 
-knitr::kable(data_fil_zuilen, caption = "Data van de 7 buurten in de wijk Zuilen", digits = 0, )
+knitr::kable(data_fil_zuilen, caption = "Data van de 7 buurten in de wijk Zuilen: Aantallen", digits = 0, col.names = colnames_data)
+
 ```
 
+In deze tabel refereren de kolommen als volgt:
+
+-   vrouwen: aantal vrouwen in de buurt
+-   inwoners: totaal aantal inwoners in de buurt
+-   0-14: aantal inwoners in de buurt in de leeftijdscategorie 0-14 jaar
+-   15-24: aantal inwoners in de buurt in de leeftijdscategorie 15-24 jaar
+-   vrouwen 0-14: aantal vrouwen in de buurt in de leeftijdscategorie 0-14 jaar (schatting)
+-   vrouwen 15-24: aantal vrouwen in de buurt in de leeftijdscategorie 15-24 jaar (schatting)
 
 Op basis van deze data van 2024 kunnen we een aantal observaties maken m.b.t. de wijk Zuilen:
 
@@ -106,7 +116,7 @@ De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/tabl
 
 Het is wellicht ook interessant om te kijken naar de sportscholen in de wijk Zuilen en om hierbij het onderscheid te maken tussen sportscholen die (1) gemengd zijn, (2) alleen voor mannen en (3) alleen voor vrouwen. Na het vinden van deze sportscholen kunnen we deze linken aan het BAG-register om vervolgens ze gekleurd weer te geven in Nederland3D.
 
-Ik heb op google maps de volgende zoektermen gebruikt: "sportschool", "sporten".
+Ik heb op google maps de volgende zoektermen gebruikt: "sportschool", "sporten". Vervolgens heb ik informatie m.b.t. de sportscholen in de wijk Zuilen in een csv bestand gezet. Hierbij het ik genoteerd: de naam van de sportschool, het adres, het type sportschool, of de sportschool gemengd is of niet, of er vooral mannen of vrouwen bij de sportschool sporten en eventuele opmerkingen. Deze laatste twee variabelen waren niet makkelijk te bepalen aangezien dit vaak niet duidelijk op de website van de sportschool stond. De variabele "Vooral", die aangeeft of er vooral mannen of vrouwen sporten, is vooral gebaseerd op de foto's die op de website van de sportschool staan. Deze variabele leek mij nuttig omdat alhoewel een sportschool die Yoga geeft gemengd kan zijn, maar in het algemeen vooral door vrouwen bezocht wordt, wat een invloed heeft op de soort sfeer van een sportschool. Maar misschien is het een idee om deze laatste twee variabelen te verifiëren bij de sportscholen zelf.
 
 Het is opvallend dat er redelijk weinig sportscholen zijn in Zuilen en dat er juist een aantal net over de grens van de wijk zijn (bijvoorbeeld in Nieuw Engeland, Schepenbuurt zijn er 5 sportscholen). Een van deze sportsscholen, [ALLIN Fitness](https://allinnfitness.nl/sportschool-utrecht/) zegt in Zuilen te zitten, maar dit is volgens de buurtgrenzen niet het geval.
 
@@ -117,12 +127,12 @@ Het is opvallend dat er redelijk weinig sportscholen zijn in Zuilen en dat er ju
 Sportscholen_Zuilen <- read_delim("Sportscholen-Zuilen.csv", 
     delim = ";", escape_double = FALSE, trim_ws = TRUE)
 Sportscholen_Zuilen <- Sportscholen_Zuilen %>%
-  select(-c(Adres, Opmerking))
+  select(-c(Adres, "BAG-Pand id's", Opmerking))
 
 knitr::kable(Sportscholen_Zuilen, caption = "Sportscholen in de wijk Zuilen", digits = 0)
 ```
 
-Van deze sportscholen/sportvereningen is "BeachVolleyball Utrecht" dicht tot april en zijn er drie sportscholen die vooral/alleen richten op personal training, wat me niet erg relevant lijkt voor dit vraagstuk. Als we deze weghalen houden we over:
+Van deze sportscholen/sportvereningen is "BeachVolleyball Utrecht" dicht tot april en zijn er twee sportscholen die vooral/alleen richten op personal training, wat me niet erg relevant lijkt voor dit vraagstuk. Als we deze weghalen houden we over:
 
 ```{r}
 #| label: sportscholen2
@@ -135,6 +145,26 @@ Sportscholen_Zuilen_fil <- Sportscholen_Zuilen %>%
 
 knitr::kable(Sportscholen_Zuilen_fil, caption = "Relevante Sportscholen in de wijk Zuilen", digits = 0)
 ```
+
+
+### Linken adressen aan het BAG-register
+
+Door te addressen in te voeren in de [BAG Viewer](https://bagviewer.kadaster.nl/lvbag/bag-viewer) kunnen we de BAG-pan id's van de sportscholen vinden. Helaas is hierbij een probleem dat de volgende sportvereningen allen hetzelfde adres en dus ook BAG-id delen:
+
+-   Zuilense Tennis Club
+-   BeachVolleybalUtrecht (eerder al verwijdert i.v.m. dicht tot april)
+-   H.M.S
+-   Handbal Domstad
+
+Dus als we iets willen inkleuren hier, zal het of 1 vereniging moeten zijn of een gemiddelde. Maar beiden lijken mij ver van optimaal. Desalnietemin, om de visualizatie weer te geven in Nederland3D, verwijder ik nu H.M.S. en Zuilense Tennis Club, zodat alleen Handbal Domstad gelinked is aan dit BAG-pand id. Dit is namelijk de enige entry die gescheiden heeft.
+
+De gecreëerde dataset is te vinden in deze map als `Netherlands3D-sportscholen.csv`. 
+
+### In Nederland3D
+
+Netherlands3D accepteerd een dataset of link in "GeoJSON of WFS formaat" ([Netherlands3D](https://netherlands3d.eu/#wat-is-netherlands3d)). En de "Gebouwen kleuren" functie in Netherlands3D ...
+
+> "Maakt het mogelijk om een CSV bestand in te laden met daarin een kolom BAG-Pand id's en een kolom kenmerken. De BAG Pand id's uit de CSV worden gebruikt om een koppeling met de 3D BAG paneden uit de viewer te maken om vervolgens het bijbehorende kernmerk te gebruiken om panden te kleuren. Aan elk onderscheidend kenmerk wordt een kleur toegewezen welke zichtbaar wordt gemaakt in de viewer." (instellingen $\to$ functionaliteiten $\to$ Gebouwen kleuren)
 
 
 

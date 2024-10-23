@@ -1,12 +1,12 @@
-Naam;Adres;Type;Scheiding;Vooral;Opmerking
-Sportcentrum Box&Joy;Minister Talmastraat 20, 3555 GH Utrecht;Vechtsport, Yoga, Shape oefeningen;Gemengd;vrouwen;NA
-Iron House Co. BV;Amsterdamsestraatweg 640, 3555 HX Utrecht;Sportschool;Gemengd;NA;NA
-CrossFit U1;Havenweg 6, 3555 HA Utrecht;CrossFit;Gemengd;NA;NA
-Domcity Personal Training - Personal Trainer Utrecht;Rokadestraat 7, 3554 EJ Utrecht;Personal Training, BMX clinic;NA;NA;NA
-Yoga Point Zuilen;Wallesteinlaan 45, 3554 HM Utrecht;Yoga;Gemengd;vrouwen;NA
-Lucia Personal Training;Pr. Ireneplateau 5, 3554 HW Utrecht;Personal Training;NA;NA;NA
-Zuilense Tennis Club;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;Tennis;gemengd;NA;NA
-BeachvolleybalUtrecht;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;Volleybal;NA;NA;dicht tot april
-H.M.S;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;Voetbal;Gemengd;mannen;NA
-Handbal Domstad;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;Handbal;Gescheiden;NA;NA
-USV Elinkwijk;Amsterdamsestraatweg 1015, 3555 HT Utrecht;Voetbal;Gemengd;mannen;NA
+Naam;Adres;BAG-Pand id's;Type;Scheiding;Vooral;Opmerking
+Sportcentrum Box&Joy;Minister Talmastraat 20, 3555 GH Utrecht;0344100000144434;Vechtsport, Yoga, Shape oefeningen;gemengd;vrouwen;NA
+Iron House Co. BV;Amsterdamsestraatweg 640, 3555 HX Utrecht;0344100000022069;Sportschool;gemengd;NA;NA
+CrossFit U1;Havenweg 6, 3555 HA Utrecht;0344100000079031;CrossFit;gemengd;NA;NA
+Domcity Personal Training - Personal Trainer Utrecht;Rokadestraat 7, 3554 EJ Utrecht;0344100000028225;Personal Training, BMX clinic;NA;NA;NA
+Yoga Point Zuilen;Wallesteinlaan 45, 3554 HM Utrecht;0344100000064200;Yoga;gemengd;vrouwen;NA
+Lucia Personal Training;Pr. Ireneplateau 5, 3554 HW Utrecht;0344100000033216;Personal Training;NA;NA;NA
+Zuilense Tennis Club;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;0344100000083171;Tennis;gemengd;NA;NA
+BeachvolleybalUtrecht;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;0344100000083171;Volleybal;NA;NA;dicht tot april
+H.M.S;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;0344100000083171;Voetbal;gemengd;mannen;NA
+Handbal Domstad;Burgemeester Norbruislaan 680, 3555 EZ Utrecht;0344100000083171;Handbal;gescheiden;NA;NA
+USV Elinkwijk;Amsterdamsestraatweg 1015, 3555 HT Utrecht;0344100000040500;Voetbal;gemengd;mannen;NA
