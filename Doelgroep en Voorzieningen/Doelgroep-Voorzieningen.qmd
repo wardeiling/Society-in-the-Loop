@@ -1,7 +1,7 @@
 ---
-title: "Doelgroep en Voorzieningen"
+title: "Doelgroep en Voorzieningen in 3D omgeving"
 author: "Ward B. Eiling"
-date: "Oct 21, 2024"
+date: last-modified # created at "Oct 21, 2024"
 date-format: long
 format: 
   pdf:
@@ -10,6 +10,7 @@ format:
     toc: true
     toc-depth: 5
     number-sections: true
+    shift-heading-level-by: -1
     self-contained: true
     colorlinks: true
     indent: true
@@ -100,7 +101,7 @@ Op basis van deze data van 2024 kunnen we een aantal observaties maken m.b.t. de
 
 Er zitten wel beperkingen aan het gebruik van deze open data. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar. Deze informatie is wel te achterhalen (bijvoorbeeld bij registers van de gemeente Utrecht), maar is niet openbaar beschikbaar.
 
-### Voorzieningen
+## Voorzieningen Beschikbaar in CBS Data
 
 De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/table?dl=AE6FE) van de kerncijfers wijken en buurten van het CBS bevat ook informatie over de voorzieningen in de wijk Zuilen:
 
@@ -210,23 +211,32 @@ De resultaten van deze tweede dataset (met numerieke waardes voor een kenmerk) z
 
 Wat in het algemeen duidelijk wordt is dat zichtbaarheid van de gekleurde objecten gerelateerd aan een BAG-id niet altijd optimaal is. Dit komt onder andere door alle andere objecten, zoals bomen en ander groen, die ook in de visualisatie zichtbaar zijn. Dit maakt het blijkbaar erg belangrijk dat de kleuren erg opvallen. Verder brengt dit ook de vraag of een 3D omgeving nodig is voor vraagstukken als deze, aangezien weergave in een 2D kaart simpeler en wellicht ook duidelijker is.
 
-### Scholen in Zuilen
+Verder is het nu de vraag wat voor soort data de gesprekvoering met de doelgroep kan faciliteren als het gepresenteerd wordt in een 3D omgeving. Hierbij komen o.a. de volgende vragen naar boven: 
 
-#### Basisscholen
+-   Is het gebruik van een topographische grens van de wijk Zuilen optimaal voor dit vraagstuk? En zo niet, wat voor soort grens zou dan beter zijn (bijv. rondom een school)? 
+-   Wat voor soort data leent zich goed aan visualisatie in een 3D omgeving? 
+-   Wat voor data zouden interessante gesprekken kunnen opleveren m.b.t. revelante voorzieningen voor de doelgroep in de wijk Zuilen? 
+-   Op wat voor niveau willen we de kaart presenteren (kaart van de binnenkant van een winkelcentrum of kaart van heel Zuilen)? 
+-   Hoe nemen we de tijdscomponent mee in de visualisatie en/of gespreksvoering (bijv. wat doet de jeugd buiten schooluren; hoe veranderen behoeftes naar voorzieningen in verschillende dagdelen)?
 
-Volgens [zoiszuilen](https://zoiszuilen.nl/home/over-zuilen/) kent Zuilen de volgende basisscholen:
 
--   Christelijke basisschool De kleine Vliegenier
--   Christelijke basisschool de Piramide loc. Bisschopsplein
--   Katholieke basisschool Ludgerus
--   Openbare basisschool de Cirkel
--   Openbare basisschool Prinses Margriet
--   Islamitische basisschool Aboe Da’oed
--   Katholieke basisschool Wijzer aan de Vecht
--   Speciaal basisonderwijs Belle van Zuylen
--   Lux. Speciaal onderwijs voor ZML-leerlingen
--   Brede school
+<!-- ### Scholen in Zuilen -->
 
-#### Voortgezet Onderwijs
+<!-- #### Basisscholen -->
 
-...
+<!-- Volgens [zoiszuilen](https://zoiszuilen.nl/home/over-zuilen/) kent Zuilen de volgende basisscholen: -->
+
+<!-- -   Christelijke basisschool De kleine Vliegenier -->
+<!-- -   Christelijke basisschool de Piramide loc. Bisschopsplein -->
+<!-- -   Katholieke basisschool Ludgerus -->
+<!-- -   Openbare basisschool de Cirkel -->
+<!-- -   Openbare basisschool Prinses Margriet -->
+<!-- -   Islamitische basisschool Aboe Da’oed -->
+<!-- -   Katholieke basisschool Wijzer aan de Vecht -->
+<!-- -   Speciaal basisonderwijs Belle van Zuylen -->
+<!-- -   Lux. Speciaal onderwijs voor ZML-leerlingen -->
+<!-- -   Brede school -->
+
+<!-- #### Voortgezet Onderwijs -->
+
+<!-- ... -->
