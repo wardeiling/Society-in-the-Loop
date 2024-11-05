@@ -1,7 +1,7 @@
 ---
 title: "Doelgroep en Voorzieningen in 3D omgeving"
 author: "Ward B. Eiling"
-date: last-modified # created at "Oct 21, 2024"
+date: last-modified # created on "Oct 21, 2024"
 date-format: long
 format: 
   pdf:
@@ -43,7 +43,9 @@ library(readr)
 
 ## Doelgroep
 
-### Hoe groot is de doelgroep ongeveer?
+### Hoe groot is de doelgroep?
+
+#### CBS Data
 
 De doelgroep bestaat uit meisjes in de wijk Zuilen. Op basis van [een kaart](https://www.utrecht.nl/fileadmin/uploads/documenten/bestuur-en-organisatie/publicaties/onderzoek-en-cijfers/indeling-wijken-buurten-straten/2017-07-Kaart-Utrecht-met-wijk-subwijk-buurt-en-subbuurtindeling.pdf) van de gemeente Utrecht heb ik bevestigd dat de wijk Zuilen uit 7 Buurten bestaat. Met behulp van deze informatie en de CBS data kunnen we een inschatting maken van de groote van de doelgroep in 2024 ([Kerncijfers wijken en buurten](https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/wijk-en-buurtstatistieken))
 
@@ -97,11 +99,47 @@ Op basis van deze data van 2024 kunnen we een aantal observaties maken m.b.t. de
 -   De totale populatie in de wijk is 24.100 inwoners.
 -   De populatie van meisjes in de wijk met de leeftijd 0-14 jaar is 1835 en met de leeftijd 15-24 jaar is 1734 (dit is op basis van een schatting van de fractie vrouwen in de wijk).
 
-### Beperkingen
+Er zitten wel beperkingen aan het gebruik van deze open data van het CBS. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar. 
 
-Er zitten wel beperkingen aan het gebruik van deze open data. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar. Deze informatie is wel te achterhalen (bijvoorbeeld bij registers van de gemeente Utrecht), maar is niet openbaar beschikbaar.
+#### Utrecht in Cijfers
 
-## Voorzieningen Beschikbaar in CBS Data
+De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft meer gedetailleerde informatie over de leeftijdsverdeling van meisjes in de wijk Zuilen. In @fig-doelgroep_grootte2 is de leeftijdsverdeling van meisjes in de wijk Zuilen te zien. Hieruit blijkt dat er in de wijk Zuilen relatief veel meisjes van 19-21 jaar zijn.
+
+```{r}
+#| label: fig-doelgroep_grootte2
+#| echo: false
+#| fig-cap: "Aantal vrouwen per leeftijd in de wijk Zuilen"
+
+# import csv
+data_uic <- read.delim(file = "Utrecht-in-Cijfers_bevolking-naar-geslacht-en-leeftijd-vrouwen-2024-Buurten.csv", sep = ";", header = TRUE)
+colnames(data_uic) <- c("Buurt", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "totaal")
+zuilen_leeftijd <- data_uic %>%
+  filter(Buurt == "Buurten totaal") %>%
+  select(-c(Buurt, totaal))
+zuilen_leeftijd <- as.data.frame(t(zuilen_leeftijd))
+colnames(zuilen_leeftijd) <- c("aantal")
+zuilen_leeftijd$aantal <- as.numeric(zuilen_leeftijd$aantal)
+zuilen_leeftijd$leeftijd <- 0:21
+zuilen_leeftijd$leeftijd <- factor(zuilen_leeftijd$leeftijd, levels = 0:21)  # Ordering the age levels explicitly
+
+ggplot(zuilen_leeftijd, aes(x = leeftijd, y = aantal)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black") +
+  labs(x = "Leeftijd", y = "Aantal vrouwen") +
+  theme_minimal() 
+```
+
+Nu kunnen we de leeftijden opdelen naar verschillende categorieën:
+
+-   De wijk Zuilen kent `r as.numeric(filter(zuilen_leeftijd, leeftijd %in% 12:18) %>%
+  summarise(aantal = sum(aantal)))` meisjes in de leeftijdscategorie van 12-18
+-   De wijk Zuilen kent `r as.numeric(filter(zuilen_leeftijd, leeftijd %in% 16:21) %>%
+  summarise(aantal = sum(aantal)))` meisjes in de leeftijdscategorie van 16-21
+
+Deze data geeft ons een beter beeld van de grootte van de doelgroep ten opzichte van de CBS data.
+
+## Beschikbare Data over Voorzieningen Beschikbaar
+
+### CBS Data
 
 De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/table?dl=AE6FE) van de kerncijfers wijken en buurten van het CBS bevat ook informatie over de voorzieningen in de wijk Zuilen:
 
@@ -111,6 +149,10 @@ De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/tabl
 -   Afstand tot bibliotheek
 -   Afstand tot zwembad
 -   Afstand to bioscoop
+
+### Utrecht in Cijfers
+
+
 
 ## Voorzieningen Geschikt voor Nederland 3D
 
