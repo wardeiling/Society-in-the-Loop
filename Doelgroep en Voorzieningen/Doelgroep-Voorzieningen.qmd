@@ -35,10 +35,11 @@ execute:
 #| label: load_libraries
 #| echo: false
 
-library(readxl)
-library(tidyverse)
-library(sf)
-library(readr)
+library(readxl) # for read_excel
+library(tidyverse) # for data manipulation
+library(sf) 
+library(readr) # for read_delim
+library(here) # for file paths
 ```
 
 ## Doelgroep
@@ -52,9 +53,9 @@ De doelgroep bestaat uit meisjes in de wijk Zuilen. Op basis van [een kaart](htt
 ```{r}
 #| label: doelgroep_grootte
 #| echo: false
+#| eval: false
 
 # go back to root directory from "Doelgroep en Voorzieningen" and then go to "CBS data"
-setwd("../")
 data <- read_excel("CBS Data/CBS-Utrecht-kwb-2024.xlsx")
 
 # Filter data for Zuilen
@@ -78,10 +79,17 @@ data_fil_zuilen <- data_fil_zuilen %>%
   select(-c(frac_vrouw, a_man))
          
 # head(data_fil_zuilen, 10)
+saveRDS(data_fil_zuilen, "Doelgroep en Voorzieningen/data_fil_zuilen.rds")
+```
+
+
+```{r}
+#| label: doelgroep_grootte2
+#| echo: false
+
+data_fil_zuilen <- readRDS(here("Doelgroep en Voorzieningen/data_fil_zuilen.rds"))
 colnames_data <- c("Regio", "vrouwen", "inwoners", "0-14", "15-24", "vrouwen 0-14", "vrouwen 15-24")
-
 knitr::kable(data_fil_zuilen, caption = "Data van de 7 buurten in de wijk Zuilen: Aantallen", digits = 0, col.names = colnames_data)
-
 ```
 
 In deze tabel refereren de kolommen als volgt:
@@ -111,7 +119,7 @@ De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft me
 #| fig-cap: "Aantal vrouwen per leeftijd in de wijk Zuilen"
 
 # import csv
-data_uic <- read.delim(file = "Utrecht-in-Cijfers_bevolking-naar-geslacht-en-leeftijd-vrouwen-2024-Buurten.csv", sep = ";", header = TRUE)
+data_uic <- read.delim(file = here("Doelgroep en Voorzieningen/Utrecht-in-Cijfers_bevolking-naar-geslacht-en-leeftijd-vrouwen-2024-Buurten.csv"), sep = ";", header = TRUE)
 colnames(data_uic) <- c("Buurt", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "totaal")
 zuilen_leeftijd <- data_uic %>%
   filter(Buurt == "Buurten totaal") %>%
@@ -166,7 +174,7 @@ De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft oo
 
 ## Voorzieningen Geschikt voor Nederland 3D
 
-### Voorbeeld: Sportscholen
+### Voorbeeld 1: Sportscholen
 
 #### Data Verzamelen
 
@@ -180,7 +188,7 @@ Het is opvallend dat er redelijk weinig sportscholen zijn in Zuilen en dat er ju
 #| label: sportscholen
 #| echo: false
 
-Sportscholen_Zuilen <- read_delim("Sportscholen-Zuilen.csv", 
+Sportscholen_Zuilen <- read_delim(here("Doelgroep en Voorzieningen/Sportscholen-Zuilen.csv"), 
     delim = ";", escape_double = FALSE, trim_ws = TRUE)
 Sportscholen_Zuilen <- Sportscholen_Zuilen %>%
   select(-c(Adres, "BAG-Pand id's", Opmerking))
@@ -231,7 +239,7 @@ Allereerst heb ik een dataset aangemaakt met een kleurcode voor of er vooral man
 #| label: sportscholen_kleurencode
 #| echo: false
 
-sportscholen_kleurencode <- read_delim("sportscholen-Utrecht3D-kleurencode.csv", 
+sportscholen_kleurencode <- read_delim(here("Doelgroep en Voorzieningen/sportscholen-Utrecht3D-kleurencode.csv"), 
     delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
 knitr::kable(sportscholen_kleurencode, caption = "Sportscholen in de wijk Zuilen met kleurcode", digits = 0)
@@ -249,7 +257,7 @@ Ten tweede heb ik een dataset aangemaakt met een kenmerk met een numerieke waard
 #| label: sportscholen_numeriek
 #| echo: false
 
-sportscholen_numeriek <- read_delim("sportscholen-Utrecht3D-numeriekewaarde.csv", 
+sportscholen_numeriek <- read_delim(here("Doelgroep en Voorzieningen/sportscholen-Utrecht3D-numeriekewaarde.csv"), 
     delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
 knitr::kable(sportscholen_numeriek, caption = "Sportscholen in de wijk Zuilen met numerieke waarde", digits = 0)
@@ -271,6 +279,38 @@ Verder is het nu de vraag wat voor soort data de gesprekvoering met de doelgroep
 -   Op wat voor niveau willen we de kaart presenteren (kaart van de binnenkant van een winkelcentrum of kaart van heel Zuilen)? 
 -   Hoe nemen we de tijdscomponent mee in de visualisatie en/of gespreksvoering (bijv. wat doet de jeugd buiten schooluren; hoe veranderen behoeftes naar voorzieningen in verschillende dagdelen)?
 
+### Voorbeeld 2: Sportaccomodaties
+
+Er is ook een data beschikbaar van het [mulier instituut](https://www.mulierinstituut.nl/programmas-aanbod/database-sportaanbod-dsa/) over sportaccomodaties in Utrecht. Deze is beschikbaar voor export na het maken van een account. Deze data bevat een locatie in coordinaten, een adres, een naam van de sportaccomodatie en een type sportaccomodatie. Deze data kan direct geimporteerd worden in Utrecht3D door de de functie "locaties markeren".
+
+![Mulier Instituut, Sportaccomodaties]("images/3D_utrecht_schermafbeelding_mulier_sportacc.png")
+
+Hier is ook duidelijk te zien dat ook net onder de zuidgrens van zuilen (onder Geuzenwijk) veel accomodaties zijn.
+De volgende accomodaties zitten in Zuilen (nagehaald d.m.v. het accommodatie_id en Utrecht3D): 8817, 13833, 13820, 8820, 8826, 13834, 12335, 2514, 12335, 12337, 15452, 15802, 12336, 15283, 19172, 9888, 19147, 20188. Laten de door middel van deze informatie alleen de sportaccomodaties in Zuilen zien.
+
+```{r}
+#| label: sportaccomodaties_mulier
+#| echo: false
+#| eval: false
+
+sportaccomodaties_mulier <- read_delim(here("Doelgroep en Voorzieningen/mulier-instituut_sportaccomodaties_Utrecht.csv"), delim = ";", show_col_types = FALSE)
+
+sportaccomodaties_mulier_zuilen <- sportaccomodaties_mulier %>%
+  filter(accommodatie_id %in% c(8817, 13833, 13820, 8820, 8826, 13834, 12335, 2514, 12335, 12337, 15452, 15802, 12336, 15283, 19172, 9888, 19147, 20188)) %>%
+  select("accommodatie naam", "adres", "sport")
+saveRDS(sportaccomodaties_mulier_zuilen, "Doelgroep en Voorzieningen/sportaccomodaties_mulier_zuilen.rds")
+```
+
+```{r}
+#| label: sportaccomodaties_mulier2
+#| echo: false
+
+sportaccomodaties_mulier_zuilen <- readRDS(here("Doelgroep en Voorzieningen/sportaccomodaties_mulier_zuilen.rds"))
+
+knitr::kable(sportaccomodaties_mulier_zuilen, caption = "Sportaccomodaties in de wijk Zuilen", digits = 0)
+```
+
+Deze data kan uiteinlijk ook gelinked worden aan het BAG-register om vervolgens met kleurenverloop weer te geven in Utrecht3D. Hierbij is de vraag (1) welke variabele we willen visualiseren en (2) hoe we het probleem kunnen omzijlen dat er meerdere sportaccomodaties gerelateerd zijn aan 1 adres (en dus ook aan 1 BAG-id).
 
 <!-- ### Scholen in Zuilen -->
 
