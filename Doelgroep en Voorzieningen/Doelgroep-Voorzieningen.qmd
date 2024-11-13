@@ -170,6 +170,7 @@ De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft oo
     -   algemeen buurtoordeel openbare ruimte
     -   tevredenheid in de buurt over groen/verlichting/speelgelegenhei/jongerenvoorzieningen
 -   onderwijs & vaardigheden - aantal leerlingen naar woonlocatie en wijk onderwijsinstelling (hier is dus te zien of er veel leerlingen uit de wijk naar een school in de wijk gaan of juist naar een school buiten de wijk). Helaas is deze openbare data enkel op wijkniveau beschikbaar, maar misschien heeft de gemeente Utrecht deze data ook op buurt niveau.
+    -   Hieruit blijkt dat relatief veel jongeren van de wijk Noordwest naar voortgezet onderwijs in een andere wijk gaan. `r round(149/(38+149+174+182+172+188+28+230+167+57)*100,1)`% van de leerlingen van de wijk Noordwets blijft in de wijk en `r round(100-(149/(38+149+174+182+172+188+28+230+167+57)*100),1)`% gaat naar een school in een andere wijk.
 -   inclusie en sociale veiligheid bij jongeren, bijvoorbeeld: gepest op internet, gediscrimineerd.
 
 ## Voorzieningen Geschikt voor Nederland 3D
