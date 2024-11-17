@@ -40,6 +40,7 @@ library(tidyverse) # for data manipulation
 library(sf) 
 library(readr) # for read_delim
 library(here) # for file paths
+# install.packages("here")
 ```
 
 ## Doelgroep
@@ -145,7 +146,7 @@ Nu kunnen we de leeftijden opdelen naar verschillende categorieën:
 
 Deze data geeft ons een beter beeld van de grootte van de doelgroep ten opzichte van de CBS data.
 
-## Beschikbare Data over Voorzieningen Beschikbaar
+## Beschikbare Data over Voorzieningen
 
 ### CBS Data
 
@@ -160,18 +161,60 @@ De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/tabl
 
 ### Utrecht in Cijfers
 
-De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft ook informatie over de voorzieningen in de wijk Zuilen. Zo is er bijvoorbeeld informatie over de volgende voorzieningen:
+De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft ook informatie over de voorzieningen in de subwijk Zuilen (of de de gehele wijk Noordwest of de buurten van Zuilen). Zo is er bijvoorbeeld informatie over de volgende voorzieningen:
 
--   tevredenheid over sportvoorzieningen in de buurt of in de stad
--   deelname culturele activiteiten, bijvoorbeeld: bezoek muziek, dans, toneel, film, museum, festival, restaurant
--   veiligheid, bijvoorbeeld: onveilig voelen, overlast van jongeren, gemeente treed voldoende op tegen verschillende soorten overlast (bijv. vervuiling van openbare ruimte, drank- en drugsoverlast)
--   vervoersongelijkheid, bijvoorbeeld: inwoners data werklocatie/onderwijslocatie/huisarts kan bereiken
--   openbare ruimte & groen, bijvoorbeeld:
-    -   algemeen buurtoordeel openbare ruimte
-    -   tevredenheid in de buurt over groen/verlichting/speelgelegenhei/jongerenvoorzieningen
--   onderwijs & vaardigheden - aantal leerlingen naar woonlocatie en wijk onderwijsinstelling (hier is dus te zien of er veel leerlingen uit de wijk naar een school in de wijk gaan of juist naar een school buiten de wijk). Helaas is deze openbare data enkel op wijkniveau beschikbaar, maar misschien heeft de gemeente Utrecht deze data ook op buurt niveau.
-    -   Hieruit blijkt dat relatief veel jongeren van de wijk Noordwest naar voortgezet onderwijs in een andere wijk gaan. `r round(149/(38+149+174+182+172+188+28+230+167+57)*100,1)`% van de leerlingen van de wijk Noordwets blijft in de wijk en `r round(100-(149/(38+149+174+182+172+188+28+230+167+57)*100),1)`% gaat naar een school in een andere wijk.
--   inclusie en sociale veiligheid bij jongeren, bijvoorbeeld: gepest op internet, gediscrimineerd.
+#### Sport
+
+Tevredenheid over sportvoorzieningen in de buurt of in de stad.
+
+#### Cultuur
+
+De algemene tevredenheid over culturele voorzieningen in (a) de subwijken Zuilen-west en (b) Zuilen-noord/-oost was in 2023 redelijk dichtbij de gemiddelde tevredenheid in de hele stad Utrecht. Wel lijkt men iets meer tevreden te zijn in Zuilen-west vergeleken met Zuilen-noord/-oost, al is het niet duidelijk of dit verschil significant is.
+
+```{r}
+cultuur_tev <- read.csv("Doelgroep en Voorzieningen/UIC_tevredenheid_culturele_voorzieningen_buurt_2023_deel.csv", sep = ";")
+
+knitr::kable(cultuur_tev, caption = "Procent inwoners dat tevreden is over culturele voorzieningen in de buurt in 2023", colnames = c("Regio", "(zeer) tevreden", "neutraal", "zeer (ontevreden"))
+```
+
+De algemene cultuurdeelname in Zuilen-west en Zuilen-noord/-oost zijn respectievelijk 94% en 79%; vergeleken met een gemiddelde cultuurdeelname van 89% over heel Utrecht genomen. Er lijkt wel een positieve correlatie te zijn tussen de cultuurdeelname en de tevredenheid over culturele voorzieningen. Dit kan bijvoorbeeld komen doordat de aanwezigheid zowel meer deelname als meer tevredenheid veroorzaakt. (oftewel, aanwezigheid van culturele voorzieningen is een confounder).
+
+Specifieker gezien is er ook informatie over de deelname aan verschillende culturele activiteiten in 2023: bezoek muziek, dans, toneel, film, museum, festival, restaurant. Zo blijkt dat inwoners uit Zuilen-west gemiddeld een hogere deelname hebben aan *alle* gemeten culturele activiteiten vergeleken met heel Utrecht. Daarentegen is de deelname aan *alle* culturele activiteiten in Zuilen-noord/-oost lager dan het gemiddelde in Utrecht. Dit geeft aan dat er duidelijke verschillen zijn binnen de wijk Zuilen. Nu roept dit natuurlijk de vraag op of de verschillen in tevredenheid en deelname direct veroorzaakt wordt door het (gebrek aan) aanbod, wat wel aannemelijk is.
+
+```{r}
+cultuur_deelname <- read.csv("Doelgroep en Voorzieningen/UIC_deelname_culturele_activiteiten_2023_Subwijken_deel.csv", sep = ";")
+knitr::kable(cultuur_deelname, caption = "Procent inwoners dat verschillende culturele activiteiten bezoekt in 2023")
+```
+
+#### Veiligheid
+
+bijvoorbeeld: onveilig voelen, overlast van jongeren, gemeente treed voldoende op tegen verschillende soorten overlast (bijv. vervuiling van openbare ruimte, drank- en drugsoverlast)
+
+#### Mobiliteit
+
+vervoersongelijkheid, bijvoorbeeld: inwoners data werklocatie/onderwijslocatie/huisarts kan bereiken
+
+#### Openbare Ruimte & Groen
+
+Het algemeen buurtoordeel voor de openbare ruimte in a) Zuilen-west en b) Zuilen-noord/-oost is 7.2 en 6.2 respectievelijk; vergeleken met een gemiddelde van 7.3 over heel Utrecht genomen. Dit geeft aan dat de algemene tevredenheid over de openbare ruimte in Zuilen-west hoger is dan in Zuilen-noord/-oost.
+
+Specifieker gezien is er ook informatie over de tevredenheid over jongerenvoorzieningen in de buurt in 2023. Hieruit blijkt dat inwoners uit zowel a) Zuilen-west als b) Zuilen-noord/-oost minder tevreden zijn over de jongerenvoorzieningen in de buurt vergeleken met het gemiddelde in Utrecht. In Zuilen-noord/-oost is de tevredenheid iets lager dan in Zuilen-west, maar het is niet duidelijk of dit verschil significant is.
+
+```{r}
+tev_jongerenvoorz <- read.csv("Doelgroep en Voorzieningen/UIC_tevredenheid_jongerenvoorzieningen_subwijk_2023.csv", sep = ";")
+knitr::kable(tev_jongerenvoorz, caption = "Procent inwoners dat tevreden is over jongerenvoorzieningen in de buurt in 2023")
+```
+
+Verder is er ook nog informatie over tevredenheid in de buurt over groen, verlichting en speelgelegenheid.
+
+#### Onderwijs & Vaardigheden 
+
+Er is informatie over het aantal leerlingen naar woonlocatie en wijk onderwijsinstelling uit het schooljaar 2022-2023. Hieruit blijkt dat
+
+-    relatief veel jongeren van de wijk Noordwest gaan naar voortgezet onderwijs in een andere wijk gaan: slechts 10.8% van de leerlingen van de wijk Noordwest blijft in de wijk en 89.2% gaat naar voortgezet onderwijs in een andere wijk.
+-   relatief weinig jongeren in die in de wijk Noordwest op het voortgezet onderwijs zitten komen uit Noordwest: slechts 28.8% van de leerlingen op het voortgezet onderwijs in Noordwest komt uit Noordwest en 71.2%  komt uit een andere wijk.
+
+Helaas is deze openbare data enkel op wijkniveau beschikbaar, maar misschien heeft de gemeente Utrecht deze data ook op buurt niveau. Verder is er ook informatie over inclusie en sociale veiligheid bij jongeren, bijvoorbeeld: gepest op internet, gediscrimineerd.
 
 ## Voorzieningen Geschikt voor Nederland 3D
 
