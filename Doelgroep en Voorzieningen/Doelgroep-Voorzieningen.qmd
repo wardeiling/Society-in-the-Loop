@@ -40,77 +40,13 @@ library(tidyverse) # for data manipulation
 library(sf) 
 library(readr) # for read_delim
 library(here) # for file paths
-# install.packages("here")
 ```
 
 ## Doelgroep
 
-### Hoe groot is de doelgroep?
+### Utrecht in Cijfers - Hoe groot is de doelgroep?
 
-#### CBS Data
-
-De doelgroep bestaat uit meisjes in de wijk Zuilen. Op basis van [een kaart](https://www.utrecht.nl/fileadmin/uploads/documenten/bestuur-en-organisatie/publicaties/onderzoek-en-cijfers/indeling-wijken-buurten-straten/2017-07-Kaart-Utrecht-met-wijk-subwijk-buurt-en-subbuurtindeling.pdf) van de gemeente Utrecht heb ik bevestigd dat de wijk Zuilen uit 7 Buurten bestaat. Met behulp van deze informatie en de CBS data kunnen we een inschatting maken van de groote van de doelgroep in 2024 ([Kerncijfers wijken en buurten](https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/wijk-en-buurtstatistieken))
-
-```{r}
-#| label: doelgroep_grootte
-#| echo: false
-#| eval: false
-
-# go back to root directory from "Doelgroep en Voorzieningen" and then go to "CBS data"
-data <- read_excel("CBS Data/CBS-Utrecht-kwb-2024.xlsx")
-
-# Filter data for Zuilen
-regio_keep <- c("Utrecht", "Wijk 02 Noordwest", "Julianapark en omgeving", "Elinkwijk en omgeving", "Prins Bernhardplein en omgeving", "Geuzenwijk", "Schaakbuurt en omgeving", "Queeckhovenplein en omgeving", "Zuilen-Noord")
-
-data_fil <- data %>%
-  filter(regio %in% regio_keep) %>%
-  select(regio, a_man, a_vrouw, a_inw, a_00_14, a_15_24)
-
-# head(data_fil, 10)
-  
-# add row for totaal in de 7 buurten
-data_fil_zuilen <- data_fil[3:9,]
-data_fil_zuilen <- rbind(data_fil_zuilen, c("Zuilen Totaal", colSums(data_fil_zuilen[,2:6])))
-# make columns 2 to 6 numeric
-data_fil_zuilen[,2:6] <- sapply(data_fil_zuilen[,2:6], as.numeric)
-data_fil_zuilen <- data_fil_zuilen %>%
-  mutate(frac_vrouw = (a_vrouw / (a_man + a_vrouw)),
-         V_0.14 = frac_vrouw * a_00_14,
-         V_15.24 = frac_vrouw * a_15_24) %>%
-  select(-c(frac_vrouw, a_man))
-         
-# head(data_fil_zuilen, 10)
-saveRDS(data_fil_zuilen, "Doelgroep en Voorzieningen/data_fil_zuilen.rds")
-```
-
-
-```{r}
-#| label: doelgroep_grootte2
-#| echo: false
-
-data_fil_zuilen <- readRDS(here("Doelgroep en Voorzieningen/data_fil_zuilen.rds"))
-colnames_data <- c("Regio", "vrouwen", "inwoners", "0-14", "15-24", "vrouwen 0-14", "vrouwen 15-24")
-knitr::kable(data_fil_zuilen, caption = "Data van de 7 buurten in de wijk Zuilen: Aantallen", digits = 0, col.names = colnames_data)
-```
-
-In deze tabel refereren de kolommen als volgt:
-
--   vrouwen: aantal vrouwen in de buurt
--   inwoners: totaal aantal inwoners in de buurt
--   0-14: aantal inwoners in de buurt in de leeftijdscategorie 0-14 jaar
--   15-24: aantal inwoners in de buurt in de leeftijdscategorie 15-24 jaar
--   vrouwen 0-14: aantal vrouwen in de buurt in de leeftijdscategorie 0-14 jaar (schatting)
--   vrouwen 15-24: aantal vrouwen in de buurt in de leeftijdscategorie 15-24 jaar (schatting)
-
-Op basis van deze data van 2024 kunnen we een aantal observaties maken m.b.t. de wijk Zuilen:
-
--   De fractie vrouwen in de wijk varieert per buurt tussen de 0.50 en 0.53 met een gemiddelde van 0.516.
--   De totale populatie in de wijk is 24.100 inwoners.
--   De populatie van meisjes in de wijk met de leeftijd 0-14 jaar is 1835 en met de leeftijd 15-24 jaar is 1734 (dit is op basis van een schatting van de fractie vrouwen in de wijk).
-
-Er zitten wel beperkingen aan het gebruik van deze open data van het CBS. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar. 
-
-#### Utrecht in Cijfers
+Eerst heb ik dit geprobeerd m.b.v. CBS data (zie @sec-bijlage1: Bijlage 1), maar deze data heeft beperkte informatie over de leeftijden van de meisjes in de wijk Zuilen). Deze sectie laat m.b.v. Utrecht in Cijfers zien hoeveel meisjes er in de wijk Zuilen zijn en hoe deze verdeeld zijn over verschillende leeftijdscategorieën.
 
 De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft meer gedetailleerde informatie over de leeftijdsverdeling van meisjes in de wijk Zuilen. In @fig-doelgroep_grootte2 is de leeftijdsverdeling van meisjes in de wijk Zuilen te zien. Hieruit blijkt dat er in de wijk Zuilen relatief veel meisjes van 19-21 jaar zijn.
 
@@ -139,10 +75,8 @@ ggplot(zuilen_leeftijd, aes(x = leeftijd, y = aantal)) +
 
 Nu kunnen we de leeftijden opdelen naar verschillende categorieën:
 
--   De wijk Zuilen kent `r as.numeric(filter(zuilen_leeftijd, leeftijd %in% 12:18) %>%
-  summarise(aantal = sum(aantal)))` meisjes in de leeftijdscategorie van 12-18
--   De wijk Zuilen kent `r as.numeric(filter(zuilen_leeftijd, leeftijd %in% 16:21) %>%
-  summarise(aantal = sum(aantal)))` meisjes in de leeftijdscategorie van 16-21
+-   De wijk Zuilen kent `r as.numeric(filter(zuilen_leeftijd, leeftijd %in% 12:18) %>%   summarise(aantal = sum(aantal)))` meisjes in de leeftijdscategorie van 12-18
+-   De wijk Zuilen kent `r as.numeric(filter(zuilen_leeftijd, leeftijd %in% 16:21) %>%   summarise(aantal = sum(aantal)))` meisjes in de leeftijdscategorie van 16-21
 
 Deze data geeft ons een beter beeld van de grootte van de doelgroep ten opzichte van de CBS data.
 
@@ -165,54 +99,77 @@ De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft oo
 
 #### Sport
 
-Tevredenheid over sportvoorzieningen in de buurt of in de stad.
+Er is data beschikbaar over de tevredenheid over sportvoorzieningen in de buurt of stad.
 
 #### Cultuur
 
-De algemene tevredenheid over culturele voorzieningen in (a) de subwijken Zuilen-west en (b) Zuilen-noord/-oost was in 2023 redelijk dichtbij de gemiddelde tevredenheid in de hele stad Utrecht. Wel lijkt men iets meer tevreden te zijn in Zuilen-west vergeleken met Zuilen-noord/-oost, al is het niet duidelijk of dit verschil significant is.
+De algemene tevredenheid over culturele voorzieningen in (a) de subwijken Zuilen-west en (b) Zuilen-noord/-oost was in 2023 redelijk dichtbij de gemiddelde tevredenheid in de hele stad Utrecht (zie @tbl-cultuur_tev). Wel lijkt men iets meer tevreden te zijn in Zuilen-west vergeleken met Zuilen-noord/-oost, al is het niet duidelijk of dit verschil significant is.
 
 ```{r}
-cultuur_tev <- read.csv("Doelgroep en Voorzieningen/UIC_tevredenheid_culturele_voorzieningen_buurt_2023_deel.csv", sep = ";")
+#| label: tbl-cultuur_tev
+#| echo: false
 
-knitr::kable(cultuur_tev, caption = "Procent inwoners dat tevreden is over culturele voorzieningen in de buurt in 2023", colnames = c("Regio", "(zeer) tevreden", "neutraal", "zeer (ontevreden"))
+cultuur_tev <- read.csv(here("Doelgroep en Voorzieningen/UIC_tevredenheid_culturele_voorzieningen_buurt_2023_deel.csv"), sep = ";")
+colnames(cultuur_tev) <- c("Regio", "% zeer tevreden", "% neutraal", "% zeer ontevreden")
+knitr::kable(cultuur_tev, caption = "Procent inwoners dat tevreden is over culturele voorzieningen in de buurt in 2023")
 ```
 
-De algemene cultuurdeelname in Zuilen-west en Zuilen-noord/-oost zijn respectievelijk 94% en 79%; vergeleken met een gemiddelde cultuurdeelname van 89% over heel Utrecht genomen. Er lijkt wel een positieve correlatie te zijn tussen de cultuurdeelname en de tevredenheid over culturele voorzieningen. Dit kan bijvoorbeeld komen doordat de aanwezigheid zowel meer deelname als meer tevredenheid veroorzaakt. (oftewel, aanwezigheid van culturele voorzieningen is een confounder).
+De algemene cultuurdeelname in Zuilen-west en Zuilen-noord/-oost zijn respectievelijk 94% en 79%; vergeleken met een gemiddelde cultuurdeelname van 89% over heel Utrecht genomen. Er lijkt dus mogelijk een positieve correlatie te zijn tussen de cultuurdeelname en de tevredenheid over culturele voorzieningen. Dit kan bijvoorbeeld komen doordat de aanwezigheid van culturele voorzieningen/activiteiten zowel meer deelname als meer tevredenheid veroorzaakt. (oftewel, aanwezigheid van culturele voorzieningen is een confounder).
 
-Specifieker gezien is er ook informatie over de deelname aan verschillende culturele activiteiten in 2023: bezoek muziek, dans, toneel, film, museum, festival, restaurant. Zo blijkt dat inwoners uit Zuilen-west gemiddeld een hogere deelname hebben aan *alle* gemeten culturele activiteiten vergeleken met heel Utrecht. Daarentegen is de deelname aan *alle* culturele activiteiten in Zuilen-noord/-oost lager dan het gemiddelde in Utrecht. Dit geeft aan dat er duidelijke verschillen zijn binnen de wijk Zuilen. Nu roept dit natuurlijk de vraag op of de verschillen in tevredenheid en deelname direct veroorzaakt wordt door het (gebrek aan) aanbod, wat wel aannemelijk is.
+Specifieker gezien is er ook informatie over de deelname aan verschillende culturele activiteiten in 2023: bezoek muziek, dans, toneel, film, museum, festival, restaurant (zie @tbl-cultuur_deelname). Zo blijkt dat inwoners uit Zuilen-west gemiddeld een hogere deelname hebben aan *alle* gemeten culturele activiteiten vergeleken met heel Utrecht. Daarentegen is de deelname aan *alle* culturele activiteiten in Zuilen-noord/-oost lager dan het gemiddelde in Utrecht. Dit geeft aan dat er duidelijke verschillen zijn binnen de wijk Zuilen. Nu roept dit natuurlijk de vraag op of de verschillen in tevredenheid en deelname direct veroorzaakt wordt door het (gebrek aan) aanbod, wat wel aannemelijk is.
 
 ```{r}
-cultuur_deelname <- read.csv("Doelgroep en Voorzieningen/UIC_deelname_culturele_activiteiten_2023_Subwijken_deel.csv", sep = ";")
+#| label: tbl-cultuur_deelname
+#| echo: false
+
+cultuur_deelname <- read.csv(here("Doelgroep en Voorzieningen/UIC_deelname_culturele_activiteiten_2023_Subwijken_deel.csv"), sep = ";")
+cultuur_deelname <- t(cultuur_deelname)
+# save and remove first row
+# reg_names <- as.character(cultuur_deelname[1,])
+cultuur_deelname <- as.data.frame(cultuur_deelname[-1,])
+colnames(cultuur_deelname) <- c("Zuilen-west", "Zuilen-noord/-oost", "Utrecht")
+row.names(cultuur_deelname) <- c("klassieke muziek", "popmuziek of dance", "muziektheater, musical of opera", "overige muziek", "toneel of dans", "cabaret of stand up comedian", "naar de film", "museum", "festival of cultureel evenement", "restaurant of cafe")
+
 knitr::kable(cultuur_deelname, caption = "Procent inwoners dat verschillende culturele activiteiten bezoekt in 2023")
 ```
 
 #### Veiligheid
 
-bijvoorbeeld: onveilig voelen, overlast van jongeren, gemeente treed voldoende op tegen verschillende soorten overlast (bijv. vervuiling van openbare ruimte, drank- en drugsoverlast)
+Er is ook data beschikbaar over de veiligheid in de buurt. Uit 2023 data blijkt dat 28% zich wel eens onveilig voelt in Zuilen-west en 42% in Zuilen-noord/-oost; vergeleken met 34% over heel Utrecht genomen. Dit geeft aan dat de veiligheidsbeleving in Zuilen-west behoorlijk lager is dan in Zuilen-noord/-oost en heel Utrecht. Deze data komt overeen met het scheidslijnen rapport van de gemeente Utrecht, wat gepubliceerd was in 2023 (zie [rapport](https://utrecht-monitor.nl/scheidslijnen-utrecht/26-veiligheidsbeleving)).
+
+Verder is er ook informatie over overlast van jongeren en of de gemeente voldoende optreed tegen verschillende soorten overlast (bijv. vervuiling van openbare ruimte, drank- en drugsoverlast).
 
 #### Mobiliteit
 
-vervoersongelijkheid, bijvoorbeeld: inwoners data werklocatie/onderwijslocatie/huisarts kan bereiken
+Er is ook data beschikbaar over de vervoersongelijkheid in Utrecht. Zo is er informatie over de bereikbaarheid van verschillende van bijvoorbeeld werklocatie, onderwijslocatie en huisarts.
 
 #### Openbare Ruimte & Groen
 
-Het algemeen buurtoordeel voor de openbare ruimte in a) Zuilen-west en b) Zuilen-noord/-oost is 7.2 en 6.2 respectievelijk; vergeleken met een gemiddelde van 7.3 over heel Utrecht genomen. Dit geeft aan dat de algemene tevredenheid over de openbare ruimte in Zuilen-west hoger is dan in Zuilen-noord/-oost.
+Volgens data uit 2023 was het algemeen buurtoordeel voor de openbare ruimte in a) Zuilen-west en b) Zuilen-noord/-oost 7.2 en 6.2 respectievelijk uit 10; vergeleken met een gemiddelde van 7.3 over heel Utrecht genomen. Dit geeft aan dat de algemene tevredenheid over de openbare ruimte in Zuilen-west hoger is dan in Zuilen-noord/-oost.
 
-Specifieker gezien is er ook informatie over de tevredenheid over jongerenvoorzieningen in de buurt in 2023. Hieruit blijkt dat inwoners uit zowel a) Zuilen-west als b) Zuilen-noord/-oost minder tevreden zijn over de jongerenvoorzieningen in de buurt vergeleken met het gemiddelde in Utrecht. In Zuilen-noord/-oost is de tevredenheid iets lager dan in Zuilen-west, maar het is niet duidelijk of dit verschil significant is.
+Specifieker gezien is er ook informatie over de tevredenheid over jongerenvoorzieningen in de buurt in 2023. Hieruit blijkt dat inwoners uit zowel a) Zuilen-west als b) Zuilen-noord/-oost minder tevreden zijn over de jongerenvoorzieningen in de buurt vergeleken met het gemiddelde in Utrecht (zie @tbl-tevr_jongeren). In Zuilen-noord/-oost is de tevredenheid iets lager dan in Zuilen-west, maar het is niet duidelijk of dit verschil significant is.
 
 ```{r}
-tev_jongerenvoorz <- read.csv("Doelgroep en Voorzieningen/UIC_tevredenheid_jongerenvoorzieningen_subwijk_2023.csv", sep = ";")
+#| label: tbl-tevr_jongeren
+#| echo: false
+
+tev_jongerenvoorz <- read.csv(here("Doelgroep en Voorzieningen/UIC_tevredenheid_jongerenvoorzieningen_subwijk_2023.csv"), sep = ";")
 knitr::kable(tev_jongerenvoorz, caption = "Procent inwoners dat tevreden is over jongerenvoorzieningen in de buurt in 2023")
 ```
 
-Verder is er ook nog informatie over tevredenheid in de buurt over groen, verlichting en speelgelegenheid.
+Verder is er ook nog 2023 data over tevredenheid in de buurt over groen, parken, verlichting en speelgelegenheid.
 
-#### Onderwijs & Vaardigheden 
+-   Zo is 83% van de inwoners uit Zuilen-west tevreden over het park in de buurt, terwijl dit percentage in Zuilen-noord/-oost 67% is; vergeleken met 72% over heel Utrecht. Dit geeft aan dat de tevredenheid over het park in de buurt in Zuilen-west hoger is dan in Zuilen-noord/-oost en heel Utrecht, wat geen grote verassing is omdat het Julianapark in Zuilen-west ligt.
+-   De tevredenheid over groen in de buurt is erg vergelijkbaar tussen Zuilen-noord/-oost (69% tevreden) en Utrecht (68% tevreden), maar ligt iets lager in Zuilen-west (59% tevreden).
+-   De tevredenheid over verlichting in de buurt is 82% in Zuilen-west, 76% in Zuilen-noord/-oost en 77% in Utrecht. Dit geeft aan dat de tevredenheid over verlichting in de buurt in Zuilen-west hoger is dan in Zuilen-noord/-oost en Utrecht.
+-   De tevredenheid over speelgelegenheid in de buurt is 58% in Zuilen-west, 55% in Zuilen-noord/-oost en 60% in Utrecht. Dit geeft aan dat de tevredenheid over speelgelegenheid in Zuilen iets lager is dan in heel Utrecht.
+
+#### Onderwijs & Vaardigheden
 
 Er is informatie over het aantal leerlingen naar woonlocatie en wijk onderwijsinstelling uit het schooljaar 2022-2023. Hieruit blijkt dat
 
--    relatief veel jongeren van de wijk Noordwest gaan naar voortgezet onderwijs in een andere wijk gaan: slechts 10.8% van de leerlingen van de wijk Noordwest blijft in de wijk en 89.2% gaat naar voortgezet onderwijs in een andere wijk.
--   relatief weinig jongeren in die in de wijk Noordwest op het voortgezet onderwijs zitten komen uit Noordwest: slechts 28.8% van de leerlingen op het voortgezet onderwijs in Noordwest komt uit Noordwest en 71.2%  komt uit een andere wijk.
+-   relatief veel jongeren van de wijk Noordwest gaan naar voortgezet onderwijs in een andere wijk gaan: slechts 10.8% van de leerlingen van de wijk Noordwest blijft in de wijk en 89.2% gaat naar voortgezet onderwijs in een andere wijk.
+-   relatief weinig jongeren in die in de wijk Noordwest op het voortgezet onderwijs zitten komen uit Noordwest: slechts 28.8% van de leerlingen op het voortgezet onderwijs in Noordwest komt uit Noordwest en 71.2% komt uit een andere wijk.
 
 Helaas is deze openbare data enkel op wijkniveau beschikbaar, maar misschien heeft de gemeente Utrecht deze data ook op buurt niveau. Verder is er ook informatie over inclusie en sociale veiligheid bij jongeren, bijvoorbeeld: gepest op internet, gediscrimineerd.
 
@@ -229,7 +186,7 @@ Ik heb op google maps de volgende zoektermen gebruikt: "sportschool", "sporten".
 Het is opvallend dat er redelijk weinig sportscholen zijn in Zuilen en dat er juist een aantal net over de grens van de wijk zijn (bijvoorbeeld in Nieuw Engeland, Schepenbuurt zijn er 5 sportscholen). Een van deze sportsscholen, [ALLIN Fitness](https://allinnfitness.nl/sportschool-utrecht/) zegt in Zuilen te zitten, maar dit is volgens de buurtgrenzen niet het geval.
 
 ```{r}
-#| label: sportscholen
+#| label: tbl-sportscholen
 #| echo: false
 
 Sportscholen_Zuilen <- read_delim(here("Doelgroep en Voorzieningen/Sportscholen-Zuilen.csv"), 
@@ -243,7 +200,7 @@ knitr::kable(Sportscholen_Zuilen, caption = "Sportscholen in de wijk Zuilen", di
 Van deze sportscholen/sportvereningen is "BeachVolleyball Utrecht" dicht tot april en zijn er twee sportscholen die vooral/alleen richten op personal training, wat me niet erg relevant lijkt voor dit vraagstuk. Als we deze weghalen houden we over:
 
 ```{r}
-#| label: sportscholen2
+#| label: tbl-sportscholen2
 #| echo: false
 
 verwijder_sportschool <- c("Domcity Personal Training - Personal Trainer Utrecht", "Lucia Personal Training", "BeachvolleybalUtrecht")
@@ -280,7 +237,7 @@ Utrecht3D is duidelijker en geeft een concreet voorbeeld, waaruit blijkt dat de 
 Allereerst heb ik een dataset aangemaakt met een kleurcode voor of er vooral mannen of vrouwen (in de fotos zichtbaar) sporten. Deze gecreëerde dataset is te vinden in deze map als `sportscholen-Utrecht3D-kleurencode.csv`. De dataset is als volgt:
 
 ```{r}
-#| label: sportscholen_kleurencode
+#| label: tbl-sportscholen_kleurencode
 #| echo: false
 
 sportscholen_kleurencode <- read_delim(here("Doelgroep en Voorzieningen/sportscholen-Utrecht3D-kleurencode.csv"), 
@@ -298,7 +255,7 @@ De resultaten van deze dataset (met specifieke hexidecimale kleurencodes) zijn t
 Ten tweede heb ik een dataset aangemaakt met een kenmerk met een numerieke waarde, voor het gebruik van een kleurverloop, waar ik sportscholen met vrouwen en mannen gemengd een "1" heb gegeven en sportscholen met gescheiden (teams) een "2". Hier is het verloop van kleuren natuurlijk niet echt gebruikt, aangezien we alleen maar 1 en 2 gebruiken voor categorisatie. Maar hierbij kan ook gedacht worden aan waardes zoals aantal personen die een plek binnen een tijd bezoekt. Deze gecreëerde dataset is te vinden in deze map als `sportscholen-Utrecht3D-numeriekewaarde.csv`. De dataset is als volgt:
 
 ```{r}
-#| label: sportscholen_numeriek
+#| label: tbl-sportscholen_numeriek
 #| echo: false
 
 sportscholen_numeriek <- read_delim(here("Doelgroep en Voorzieningen/sportscholen-Utrecht3D-numeriekewaarde.csv"), 
@@ -315,22 +272,21 @@ De resultaten van deze tweede dataset (met numerieke waardes voor een kenmerk) z
 
 Wat in het algemeen duidelijk wordt is dat zichtbaarheid van de gekleurde objecten gerelateerd aan een BAG-id niet altijd optimaal is. Dit komt onder andere door alle andere objecten, zoals bomen en ander groen, die ook in de visualisatie zichtbaar zijn. Dit maakt het blijkbaar erg belangrijk dat de kleuren erg opvallen. Verder brengt dit ook de vraag of een 3D omgeving nodig is voor vraagstukken als deze, aangezien weergave in een 2D kaart simpeler en wellicht ook duidelijker is.
 
-Verder is het nu de vraag wat voor soort data de gesprekvoering met de doelgroep kan faciliteren als het gepresenteerd wordt in een 3D omgeving. Hierbij komen o.a. de volgende vragen naar boven: 
+Verder is het nu de vraag wat voor soort data de gesprekvoering met de doelgroep kan faciliteren als het gepresenteerd wordt in een 3D omgeving. Hierbij komen o.a. de volgende vragen naar boven:
 
--   Is het gebruik van een topographische grens van de wijk Zuilen optimaal voor dit vraagstuk? En zo niet, wat voor soort grens zou dan beter zijn (bijv. rondom een school)? 
--   Wat voor soort data leent zich goed aan visualisatie in een 3D omgeving? 
--   Wat voor data zouden interessante gesprekken kunnen opleveren m.b.t. revelante voorzieningen voor de doelgroep in de wijk Zuilen? 
--   Op wat voor niveau willen we de kaart presenteren (kaart van de binnenkant van een winkelcentrum of kaart van heel Zuilen)? 
+-   Is het gebruik van een topographische grens van de wijk Zuilen optimaal voor dit vraagstuk? En zo niet, wat voor soort grens zou dan beter zijn (bijv. rondom een school)?
+-   Wat voor soort data leent zich goed aan visualisatie in een 3D omgeving?
+-   Wat voor data zouden interessante gesprekken kunnen opleveren m.b.t. revelante voorzieningen voor de doelgroep in de wijk Zuilen?
+-   Op wat voor niveau willen we de kaart presenteren (kaart van de binnenkant van een winkelcentrum of kaart van heel Zuilen)?
 -   Hoe nemen we de tijdscomponent mee in de visualisatie en/of gespreksvoering (bijv. wat doet de jeugd buiten schooluren; hoe veranderen behoeftes naar voorzieningen in verschillende dagdelen)?
 
 ### Voorbeeld 2: Sportaccomodaties
 
 Er is ook een data beschikbaar van het [mulier instituut](https://www.mulierinstituut.nl/programmas-aanbod/database-sportaanbod-dsa/) over sportaccomodaties in Utrecht. Deze is beschikbaar voor export na het maken van een account. Deze data bevat een locatie in coordinaten, een adres, een naam van de sportaccomodatie en een type sportaccomodatie. Deze data kan direct geimporteerd worden in Utrecht3D door de de functie "locaties markeren".
 
-![Mulier Instituut, Sportaccomodaties]("images/3D_utrecht_schermafbeelding_mulier_sportacc.png")
+![Mulier Instituut, Sportaccomodaties](%22images/3D_utrecht_schermafbeelding_mulier_sportacc.png%22)
 
-Hier is ook duidelijk te zien dat ook net onder de zuidgrens van zuilen (onder Geuzenwijk) veel accomodaties zijn.
-De volgende accomodaties zitten in Zuilen (nagehaald d.m.v. het accommodatie_id en Utrecht3D): 8817, 13833, 13820, 8820, 8826, 13834, 12335, 2514, 12335, 12337, 15452, 15802, 12336, 15283, 19172, 9888, 19147, 20188. Laten de door middel van deze informatie alleen de sportaccomodaties in Zuilen zien.
+Hier is ook duidelijk te zien dat ook net onder de zuidgrens van zuilen (onder Geuzenwijk) veel accomodaties zijn. De volgende accomodaties zitten in Zuilen (nagehaald d.m.v. het accommodatie_id en Utrecht3D): 8817, 13833, 13820, 8820, 8826, 13834, 12335, 2514, 12335, 12337, 15452, 15802, 12336, 15283, 19172, 9888, 19147, 20188. Laten de door middel van deze informatie alleen de sportaccomodaties in Zuilen zien.
 
 ```{r}
 #| label: sportaccomodaties_mulier
@@ -346,7 +302,7 @@ saveRDS(sportaccomodaties_mulier_zuilen, "Doelgroep en Voorzieningen/sportaccomo
 ```
 
 ```{r}
-#| label: sportaccomodaties_mulier2
+#| label: tbl-sportaccomodaties_mulier2
 #| echo: false
 
 sportaccomodaties_mulier_zuilen <- readRDS(here("Doelgroep en Voorzieningen/sportaccomodaties_mulier_zuilen.rds"))
@@ -363,16 +319,89 @@ Deze data kan uiteinlijk ook gelinked worden aan het BAG-register om vervolgens 
 <!-- Volgens [zoiszuilen](https://zoiszuilen.nl/home/over-zuilen/) kent Zuilen de volgende basisscholen: -->
 
 <!-- -   Christelijke basisschool De kleine Vliegenier -->
+
 <!-- -   Christelijke basisschool de Piramide loc. Bisschopsplein -->
+
 <!-- -   Katholieke basisschool Ludgerus -->
+
 <!-- -   Openbare basisschool de Cirkel -->
+
 <!-- -   Openbare basisschool Prinses Margriet -->
+
 <!-- -   Islamitische basisschool Aboe Da’oed -->
+
 <!-- -   Katholieke basisschool Wijzer aan de Vecht -->
+
 <!-- -   Speciaal basisonderwijs Belle van Zuylen -->
+
 <!-- -   Lux. Speciaal onderwijs voor ZML-leerlingen -->
+
 <!-- -   Brede school -->
 
 <!-- #### Voortgezet Onderwijs -->
 
 <!-- ... -->
+
+\newpage
+
+## Bijlage 1: CBS Data - Hoe groot is de doelgroep? {#sec-bijlage1}
+
+De doelgroep bestaat uit meisjes in de wijk Zuilen. Op basis van [een kaart](https://www.utrecht.nl/fileadmin/uploads/documenten/bestuur-en-organisatie/publicaties/onderzoek-en-cijfers/indeling-wijken-buurten-straten/2017-07-Kaart-Utrecht-met-wijk-subwijk-buurt-en-subbuurtindeling.pdf) van de gemeente Utrecht heb ik bevestigd dat de wijk Zuilen uit 7 Buurten bestaat. Met behulp van deze informatie en de CBS data kunnen we een inschatting maken van de groote van de doelgroep in 2024 ([Kerncijfers wijken en buurten](https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/wijk-en-buurtstatistieken); zie @tbl-doelgroep_grootte2).
+
+```{r}
+#| label: doelgroep_grootte
+#| echo: false
+#| eval: false
+
+# go back to root directory from "Doelgroep en Voorzieningen" and then go to "CBS data"
+data <- read_excel("CBS Data/CBS-Utrecht-kwb-2024.xlsx")
+
+# Filter data for Zuilen
+regio_keep <- c("Utrecht", "Wijk 02 Noordwest", "Julianapark en omgeving", "Elinkwijk en omgeving", "Prins Bernhardplein en omgeving", "Geuzenwijk", "Schaakbuurt en omgeving", "Queeckhovenplein en omgeving", "Zuilen-Noord")
+
+data_fil <- data %>%
+  filter(regio %in% regio_keep) %>%
+  select(regio, a_man, a_vrouw, a_inw, a_00_14, a_15_24)
+
+# head(data_fil, 10)
+  
+# add row for totaal in de 7 buurten
+data_fil_zuilen <- data_fil[3:9,]
+data_fil_zuilen <- rbind(data_fil_zuilen, c("Zuilen Totaal", colSums(data_fil_zuilen[,2:6])))
+# make columns 2 to 6 numeric
+data_fil_zuilen[,2:6] <- sapply(data_fil_zuilen[,2:6], as.numeric)
+data_fil_zuilen <- data_fil_zuilen %>%
+  mutate(frac_vrouw = (a_vrouw / (a_man + a_vrouw)),
+         V_0.14 = frac_vrouw * a_00_14,
+         V_15.24 = frac_vrouw * a_15_24) %>%
+  select(-c(frac_vrouw, a_man))
+         
+# head(data_fil_zuilen, 10)
+saveRDS(data_fil_zuilen, "Doelgroep en Voorzieningen/data_fil_zuilen.rds")
+```
+
+```{r}
+#| label: tbl-doelgroep_grootte2
+#| echo: false
+
+data_fil_zuilen <- readRDS(here("Doelgroep en Voorzieningen/data_fil_zuilen.rds"))
+colnames_data <- c("Regio", "vrouwen", "inwoners", "0-14", "15-24", "vrouwen 0-14", "vrouwen 15-24")
+knitr::kable(data_fil_zuilen, caption = "Data van de 7 buurten in de wijk Zuilen: Aantallen", digits = 0, col.names = colnames_data)
+```
+
+In deze tabel refereren de kolommen als volgt:
+
+-   vrouwen: aantal vrouwen in de buurt
+-   inwoners: totaal aantal inwoners in de buurt
+-   0-14: aantal inwoners in de buurt in de leeftijdscategorie 0-14 jaar
+-   15-24: aantal inwoners in de buurt in de leeftijdscategorie 15-24 jaar
+-   vrouwen 0-14: aantal vrouwen in de buurt in de leeftijdscategorie 0-14 jaar (schatting)
+-   vrouwen 15-24: aantal vrouwen in de buurt in de leeftijdscategorie 15-24 jaar (schatting)
+
+Op basis van deze data van 2024 kunnen we een aantal observaties maken m.b.t. de wijk Zuilen:
+
+-   De fractie vrouwen in de wijk varieert per buurt tussen de 0.50 en 0.53 met een gemiddelde van 0.516.
+-   De totale populatie in de wijk is 24.100 inwoners.
+-   De populatie van meisjes in de wijk met de leeftijd 0-14 jaar is 1835 en met de leeftijd 15-24 jaar is 1734 (dit is op basis van een schatting van de fractie vrouwen in de wijk).
+
+Er zitten wel beperkingen aan het gebruik van deze open data van het CBS. Zo weten we bijvoorbeeld niet wat de verdelingen zijn van de leeftijden van de meisjes in de wijk. Daarom kunnen we niet specifieker iets zeggen over bijvoorbeeld meisjes van 16-20 jaar.

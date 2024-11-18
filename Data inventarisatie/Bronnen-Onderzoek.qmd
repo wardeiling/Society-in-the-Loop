@@ -60,7 +60,13 @@ Over specifieke buurten is meer data beschikbaar. Neem bijvoorbeeld Zuilen-noord
 
 ### Scheidslijnen Rapport over Kwetsbaarheid
 
-[Scheidslijnen in Utrecht \| Utrecht Monitor (utrecht-monitor.nl)](https://utrecht-monitor.nl/scheidslijnen-utrecht) is een rapport over verschillende onderwerpen die te maken hebben met kwetsbaarheid - [algemene kwetsbaarheid](https://utrecht-monitor.nl/scheidslijnen-utrecht/11-waar-zien-we-de-grootste-kwetsbaarheid): Utrechtse buurten met een lage score op sociaal-economische status, leefbarometer en stapelingsanalyse. Hiertoe behoren 4 buurten in Zuilen: (1) Queeckhovenplein e.o., (2) PrBernhardpl. e.o. Demkageb, (3) Schaakbuurt e.o. en (4) Geuzenwijk, de Driehoek. - [opleiding en vaardigheden](https://utrecht-monitor.nl/scheidslijnen-utrecht/23-opleiding-en-vaardigheden): relatief laag (30-35%) havo/vwo advies vergeleken met andere wijken - [veiligheidsbeleving](https://utrecht-monitor.nl/scheidslijnen-utrecht/26-veiligheidsbeleving): 37% en 27% onveiligheidsbeleving in Zuilen-noord/-oost en Zuilen-west respectievelijk. Dit is relatief hoog in vergelijking met andere sub-wijken
+[Scheidslijnen in Utrecht \| Utrecht Monitor (utrecht-monitor.nl)](https://utrecht-monitor.nl/scheidslijnen-utrecht) is een rapport over verschillende onderwerpen die te maken hebben met kwetsbaarheid
+
+-   [algemene kwetsbaarheid](https://utrecht-monitor.nl/scheidslijnen-utrecht/11-waar-zien-we-de-grootste-kwetsbaarheid): Utrechtse buurten met een lage score op sociaal-economische status, leefbarometer en stapelingsanalyse. Hiertoe behoren 4 buurten in Zuilen: (1) Queeckhovenplein e.o., (2) PrBernhardpl. e.o. Demkageb, (3) Schaakbuurt e.o. en (4) Geuzenwijk, de Driehoek.
+
+-   [opleiding en vaardigheden](https://utrecht-monitor.nl/scheidslijnen-utrecht/23-opleiding-en-vaardigheden): relatief laag (30-35%) havo/vwo advies vergeleken met andere wijken
+
+-   [veiligheidsbeleving](https://utrecht-monitor.nl/scheidslijnen-utrecht/26-veiligheidsbeleving): 37% en 27% onveiligheidsbeleving in Zuilen-noord/-oost en Zuilen-west respectievelijk. Dit is relatief hoog in vergelijking met andere sub-wijken
 
 ## Nederland3D en Utrecht3D
 
