@@ -177,7 +177,41 @@ Helaas is deze openbare data enkel op wijkniveau beschikbaar, maar misschien hee
 
 [De Gezondheidsmonitor Jeugd (GMJ)](https://volksgezondheidsmonitor.nl/uitgaven/samenvatting-gezondheidsmonitors-kinderen-jongeren) wordt sinds 2019 tweejaarlijks in Utrecht uitgevoerd door de afdeling Volksgezondheid van de gemeente Utrecht, in samenwerking met de GGD regio Utrecht en GGDGHOR Nederland. De GMJ is een vragenlijstonderzoek onder leerlingen uit de tweede en vierde klas van het reguliere Utrechtse voortgezet onderwijs.
 
-Dus in tegenstelling tot de statistieken besproken in de vorige sectie (Utrecht in Cijfers, inwonersenquete), is de GMJ een vragenlijstonderzoek *onder jongeren zelf*. Helaas zijn alleen samenvattende statistieken beschikbaar en dus niet de ruwe/granulaire data. Hierdoor kunnen we alsnog niet uitspraken doen over jongeren in Zuilen.
+Dus in tegenstelling tot de statistieken besproken in de vorige sectie (Utrecht in Cijfers, inwonersenquete), is de GMJ een vragenlijstonderzoek *onder jongeren zelf*. Helaas zijn alleen samenvattende statistieken beschikbaar en dus niet de ruwe/granulaire data. Hierdoor kunnen we alsnog niet uitspraken doen over jongeren in Zuilen. 
+
+Floris heeft contact opgenomen met de afdeling Volksgezondheid, waaruit bleek dat er 80 meiden in de enquête zaten die in de wijk Zuilen wonen; en dat we van een groep gelijk aan of groter dan 80 mogelijk data kunnen opvragen voor specifieke items. In het jaar 2023 waren er 232 items. Items hieruit die ons wellicht wat kunnen vertellen over gedrag en voorkeuren rondom publieke ruimte zijn:
+
+Als jongeren bepaalde activiteiten buiten schooltijd doen, zullen ze in die tijd in ieder geval niet rondhangen in de buurt.
+
+-   Percentage jongeren dat 2 of meer dagen per week buiten schooltijd muziek maakt, zingt, speelt toneel, tekent/schildert of fotografeert bij een vereniging
+-   Percentage jongeren dat 4 of meer dagen per week buiten schooltijd muziek maakt, zingt, speelt toneel, tekent/schildert of fotografeert bij een vereniging
+-   Percentage jongeren dat minder dan 1 dag per week buiten schooltijd activiteiten bij een ander soort vereniging of organisatie doet
+-   Percentage jongeren dat wekelijks buiten schooltijd activiteiten bij een ander soort vereniging of organisatie doet
+-   Percentage jongeren dat 2 of meer dagen per week buiten schooltijd activiteiten bij een ander soort vereniging of organisatie doet
+-   Percentage jongeren dat 4 of meer dagen per week buiten schooltijd activiteiten bij een ander soort vereniging of organisatie doet
+
+Als jongeren het leuk vinden op school, zouden ze hier misschien eerder blijven na schooltijd.
+
+-   Percentage jongeren dat het (hartstikke) leuk vindt op school
+-   Percentage jongeren dat school niet leuk of vreselijk vindt
+
+Als jongeren zich veiligvoelen op school, zouden ze hier misschien eerder blijven na schooltijd. 
+
+-   Percentage jongeren dat zich veilig voelt op school
+
+Als jongeren vaak laat thuis zijn, kan dit de vraag oproepen of ze buiten zijn of niet en waarom.
+
+-   Percentage jongeren dat 1 dag of meer na 22.00 uur niet thuis is 
+
+Als jongeren veel tijd doorbrengen met hun ouders/verzorgers, zullen ze misschien niet rondhangen in de buurt.
+
+-   Percentage jongeren waarvan ouders/verzorgers veel tijd met jongere doorbrengen
+
+Het zou interessant zijn om te zien of jongeren zich vaak gediscrimineerd voelen (omtrent geslacht), aangezien dit waarschijnlijk invloed heeft op gevoel van veiligheid en wellicht een rede kan zijn dat meiden niet vaak buiten zijn.
+
+-   Percentage jongeren dat zich de afgelopen 12 maanden vaak gediscrimineerd voelt
+
+-   Percentage jongeren dat zich gediscrimineerd heeft gevoeld, waarondervanwege geslacht of gender
 
 ## Voorzieningen Geschikt voor Nederland 3D
 
