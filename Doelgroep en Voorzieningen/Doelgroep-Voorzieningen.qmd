@@ -360,6 +360,17 @@ knitr::kable(sportaccomodaties_mulier_zuilen, caption = "Sportaccomodaties in de
 
 Deze data kan uiteinlijk ook gelinked worden aan het BAG-register om vervolgens met kleurenverloop weer te geven in Utrecht3D. Hierbij is de vraag (1) welke variabele we willen visualiseren en (2) hoe we het probleem kunnen omzijlen dat er meerdere sportaccomodaties gerelateerd zijn aan 1 adres (en dus ook aan 1 BAG-id).
 
+### Voorbeeld 3: Voorzieningenkaart Gemeente Utrecht
+
+De gemeente Utrecht heeft ons een voorlopige versie van de voorzieningenkaart van Utrecht verstrekt.
+
+Deze kaart bevat informatie over 25 voorzieningen in de wijk 02 Noordwest, waaronder buurtcentra, wijkbureaus, jongerenhuiskamers, sportzalen, gymzalen, speeltuinen, sporthallen en scouting. Deze data kan direct geimporteerd worden in Utrecht3D door de de functie "locaties markeren" of "gebouwen kleuren" (het BAG ID staat erbij); of in Netherlands3D gegeven dat het de juiste kolomnamen heeft.
+
+```{r}
+
+```
+
+
 <!-- ### Scholen in Zuilen -->
 
 <!-- #### Basisscholen -->
