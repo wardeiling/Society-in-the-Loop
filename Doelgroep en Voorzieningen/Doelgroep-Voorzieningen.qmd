@@ -341,10 +341,10 @@ Hier is ook duidelijk te zien dat ook net onder de zuidgrens van zuilen (onder G
 #| echo: false
 #| eval: false
 
-sportaccomodaties_mulier <- read_delim(here("Doelgroep en Voorzieningen/mulier-instituut_sportaccomodaties_Utrecht.csv"), delim = ";", show_col_types = FALSE)
+sportaccomodaties_mulier <- read_delim(here("2024_11_mulier-instituut_sportaccomodaties_Utrecht.csv"), delim = ";", show_col_types = FALSE)
 
 sportaccomodaties_mulier_zuilen <- sportaccomodaties_mulier %>%
-  filter(accommodatie_id %in% c(8817, 13833, 13820, 8820, 8826, 13834, 12335, 2514, 12335, 12337, 15452, 15802, 12336, 15283, 19172, 9888, 19147, 20188)) %>%
+  filter(accommodatie_id %in% c(8817, 13833, 13820, 8820, 8826, 13834, 12335, 2514, 12335, 12337, 15452, 15802, 12336, 15283, 19172, 19147, 20188)) %>%
   select("accommodatie naam", "adres", "sport")
 saveRDS(sportaccomodaties_mulier_zuilen, "Doelgroep en Voorzieningen/sportaccomodaties_mulier_zuilen.rds")
 ```
