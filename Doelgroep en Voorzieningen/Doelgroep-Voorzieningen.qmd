@@ -7,6 +7,8 @@ format:
   pdf:
     papersize: a4
     # keep-tex: true
+    fig-pos: H
+    fig-cap-location: top
     toc: true
     toc-depth: 5
     number-sections: true
@@ -22,7 +24,7 @@ format:
     mainfont: Latin Modern Roman
     sansfont: Latin Modern Roman
     linestretch: 2
-    fontsize: 12pt
+    fontsize: 11pt
 link-citations: true
 execute:
   warning: false
@@ -95,7 +97,7 @@ De [2023 versie](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85830NED/tabl
 
 ### Utrecht in Cijfers
 
-De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft ook informatie over de voorzieningen in de subwijk Zuilen (of de de gehele wijk Noordwest of de buurten van Zuilen). Utrecht in Cijfers is een compilatie van verschillende data bronnen, waaronder de inwonersenquete, de veiligheidsmonitor, de jeugdmonitor en de CBS data. Zo is er bijvoorbeeld informatie over de volgende voorzieningen:
+De [Databank](https://utrecht.incijfers.nl/jive) van Utrecht in Cijfers heeft ook informatie over de voorzieningen in de subwijk Zuilen (of de de gehele wijk Noordwest of de buurten van Zuilen). Utrecht in Cijfers is een compilatie van verschillende data bronnen, waaronder de inwonersenquete, de veiligheidsmonitor, de jeugdmonitor en de CBS data. Zo is er bijvoorbeeld informatie over de volgende voorzieningen. Hierbij is het belangrijk om op te merken dat het grotendeel wat bestaat uit de inwonersenquete en CBS data die allebei ingevuld worden door participanten van 18 jaar en ouder: en dus niet door de doelgroep!
 
 #### Sport
 
@@ -135,7 +137,22 @@ knitr::kable(cultuur_deelname, caption = "Procent inwoners dat verschillende cul
 
 #### Veiligheid
 
-Er is ook data beschikbaar over de veiligheid in de buurt. Uit 2023 data blijkt dat 28% zich wel eens onveilig voelt in Zuilen-west en 42% in Zuilen-noord/-oost; vergeleken met 34% over heel Utrecht genomen. Dit geeft aan dat de veiligheidsbeleving in Zuilen-west behoorlijk lager is dan in Zuilen-noord/-oost en heel Utrecht. Deze data komt overeen met het scheidslijnen rapport van de gemeente Utrecht, wat gepubliceerd was in 2023 (zie [rapport](https://utrecht-monitor.nl/scheidslijnen-utrecht/26-veiligheidsbeleving)); en de 2024 data gebruikt voor de Sociale Propositie Noordwest (p. 33).
+Bij gesprekken door Erna en Fleur met onderzoekers uit Rotterdam kwam naar boven dat de veiligheidsbeleving erg sturend is in het gedrag van meiden in en gebruik van de buitenruimte. Er zijn drie databronnen die informatie geven over de veiligheidsbeleving in de wijk Zuilen: de inwonersenquete (volwassen inwoners), de jeugdmonitor (kinderen 10-12 jaar) en de gezondheidsmonitor jeugd (GMJ, jongeren klas 2 en 4). Laten we nu laten zien met kaarten hoe de veiligheidsbeleving in Zuilen en Noordwest zich verhoudt tot de rest van Utrecht. 
+
+Laten we eerst kijken hoe de veiligheidsbeleving is onder volwassenen in de wijk Zuilen door te kijken naar de inwonersenquete. Voor deze enquete is data beschikbaar op wijk, subwijk en buurtteam niveau. Hieruit komt naar voren dat van de inwoners in Zuilen (1) in het algemeen 43% zich soms en 3% zich vaak onveilig voelt vergeleken met 42% en 4% in Utrecht; en (2) in eigen buurt 35% zich soms en 6% zich vaak onveilig voelt vergeleken met 34% en 4% in Utrecht. Dit geeft aan dat de veiligheidsbeleving in Zuilen iets lager is dan in Utrecht. Het is wel interessant dat wanneer we verder inzoomen naar het subwijk niveau, dat we vinden dat 28% zich soms onveilig voelt in Zuilen-west en 42% in Zuilen-noord/-oost. Dit geeft aan dat alhoewel er niet zo zeer verschillen zitten in de algemene veiligheidsbeleving tussen Zuilen en Utrecht, er wel duidelijke verschillen zijn tussen de subwijken van Zuilen. De algemene bevindingen uit deze data komen overeen met het scheidslijnen rapport van de gemeente Utrecht, wat gepubliceerd was in 2023 (zie [rapport](https://utrecht-monitor.nl/scheidslijnen-utrecht/26-veiligheidsbeleving)); en de 2024 data gebruikt voor de Sociale Propositie Noordwest (p. 33).
+
+Met betrekking tot de Jeugdmonitor Utrecht 2023, wat gaat om kinderen van 10-12 jaar, is er ook informatie over de veiligheidsbeleving (alleen op wijkniveau), waaruit blijkt dat de verschillen tussen wijk Noordwest en Utrecht niet erg groot zijn (zie @tbl-jeugdmonitor).
+
+|   | in school-huis verkeer | in de klas | op/rond school | op speelplekken |
+|--------------|-------------------|--------------|--------------|--------------|
+| Wijk Noordwest | 23% | 16% | 24% | 16% |
+| Utrecht | 25% | 17% | 22% | 16% |
+
+: Percentage Onveiligheidsgevoel op Verschillende Plekken onder Kinderen van 10-12 jaar {#tbl-jeugdmonitor}
+
+Met betrekking tot de gezondheidsmonitor jeugd (GMJ) 2023, wat gaat om jongeren uit klas 2 en 4, is ook informatie over de veiligheidsbeleving (alleen op wijkniveau). Hieruit blijkt dat de 76% van de jongeren uit Noordwest zich veilig voelt op school vergeleken met 75% over heel Utrecht genomen. Dit geeft aan dat de verschillen tussen wijk Noordwest en Utrecht niet erg groot zijn (zie @fig-gmj). Maar let wel dat dit niet gaat om veiligheidsbeleving in de openbare ruimte.
+
+![Percentage van Jongeren (klas 2 en 4) Dat Zich Veilig Voelt op School](images/gezondheidsmonitor-jeugd_veiligheid-school.png){#fig-gmj}
 
 Verder is er ook informatie over overlast van jongeren en of de gemeente voldoende optreed tegen verschillende soorten overlast (bijv. vervuiling van openbare ruimte, drank- en drugsoverlast).
 
@@ -177,7 +194,7 @@ Helaas is deze openbare data enkel op wijkniveau beschikbaar, maar misschien hee
 
 [De Gezondheidsmonitor Jeugd (GMJ)](https://volksgezondheidsmonitor.nl/uitgaven/samenvatting-gezondheidsmonitors-kinderen-jongeren) wordt sinds 2019 tweejaarlijks in Utrecht uitgevoerd door de afdeling Volksgezondheid van de gemeente Utrecht, in samenwerking met de GGD regio Utrecht en GGDGHOR Nederland. De GMJ is een vragenlijstonderzoek onder leerlingen uit de tweede en vierde klas van het reguliere Utrechtse voortgezet onderwijs.
 
-Dus in tegenstelling tot de statistieken besproken in de vorige sectie (Utrecht in Cijfers, inwonersenquete), is de GMJ een vragenlijstonderzoek *onder jongeren zelf*. Helaas zijn alleen samenvattende statistieken beschikbaar en dus niet de ruwe/granulaire data. Hierdoor kunnen we alsnog niet uitspraken doen over jongeren in Zuilen. 
+Dus in tegenstelling tot de statistieken besproken in de vorige sectie (Utrecht in Cijfers, inwonersenquete), is de GMJ een vragenlijstonderzoek *onder jongeren zelf*. Helaas zijn alleen samenvattende statistieken beschikbaar en dus niet de ruwe/granulaire data. Hierdoor kunnen we alsnog niet uitspraken doen over jongeren in Zuilen.
 
 Floris heeft contact opgenomen met de afdeling Volksgezondheid, waaruit bleek dat er 80 meiden in de enquête zaten die in de wijk Zuilen wonen; en dat we van een groep gelijk aan of groter dan 80 mogelijk data kunnen opvragen voor specifieke items. In het jaar 2023 waren er 232 items. Items hieruit die ons wellicht wat kunnen vertellen over gedrag en voorkeuren rondom publieke ruimte zijn:
 
@@ -195,13 +212,13 @@ Als jongeren het leuk vinden op school, zouden ze hier misschien eerder blijven 
 -   Percentage jongeren dat het (hartstikke) leuk vindt op school
 -   Percentage jongeren dat school niet leuk of vreselijk vindt
 
-Als jongeren zich veiligvoelen op school, zouden ze hier misschien eerder blijven na schooltijd. 
+Als jongeren zich veiligvoelen op school, zouden ze hier misschien eerder blijven na schooltijd.
 
 -   Percentage jongeren dat zich veilig voelt op school
 
 Als jongeren vaak laat thuis zijn, kan dit de vraag oproepen of ze buiten zijn of niet en waarom.
 
--   Percentage jongeren dat 1 dag of meer na 22.00 uur niet thuis is 
+-   Percentage jongeren dat 1 dag of meer na 22.00 uur niet thuis is
 
 Als jongeren veel tijd doorbrengen met hun ouders/verzorgers, zullen ze misschien niet rondhangen in de buurt.
 
@@ -278,7 +295,7 @@ Helaas is hier geen voorbeeld beschikbaar van wat de data format kan zijn. Als i
 | 123456789101237 | DB372D   |
 | 123456789101238 | 9DBA3A   |
 
-Utrecht3D geeft een concreet voorbeeld, waaruit blijkt dat de kolom naam "BAG_ID" en of "Kleurcode"/"Kenmerk" mogelijk zijn. Ook is Utrecht3D flexiber door de optie te geven om een kolom met een andere naam te kiezen voor zowel het BAG-pand id als een kenmerk (voor het verloop van kleur) of direct een kleurcode. 
+Utrecht3D geeft een concreet voorbeeld, waaruit blijkt dat de kolom naam "BAG_ID" en of "Kleurcode"/"Kenmerk" mogelijk zijn. Ook is Utrecht3D flexiber door de optie te geven om een kolom met een andere naam te kiezen voor zowel het BAG-pand id als een kenmerk (voor het verloop van kleur) of direct een kleurcode.
 
 ##### Dataset 1: Kleurcode voor Vooral Mannen of Vrouwen
 
@@ -369,7 +386,6 @@ Deze kaart bevat informatie over 25 voorzieningen in de wijk 02 Noordwest, waaro
 ```{r}
 
 ```
-
 
 <!-- ### Scholen in Zuilen -->
 
