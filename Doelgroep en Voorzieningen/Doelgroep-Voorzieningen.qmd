@@ -24,7 +24,7 @@ format:
     mainfont: Latin Modern Roman
     sansfont: Latin Modern Roman
     linestretch: 2
-    fontsize: 11pt
+    fontsize: 10pt
 link-citations: true
 execute:
   warning: false
@@ -279,7 +279,7 @@ Door te addressen in te voeren in de [BAG Viewer](https://bagviewer.kadaster.nl/
 
 Dus als we iets willen inkleuren hier, zal het of 1 vereniging moeten zijn of een gemiddelde. Maar beiden lijken mij ver van optimaal. Desalnietemin, om de visualizatie weer te geven in Nederland3D, verwijder ik nu H.M.S. en Zuilense Tennis Club, zodat alleen Handbal Domstad gelinked is aan dit BAG-pand id. Dit is namelijk de enige entry die gescheiden heeft. Na het verzmalen van deze data, is het belangrijk vast te stellen wat voor informatie de Nederland3D en/of Utrecht3D omgeving accepteerd.
 
-#### Nederland3D en Utrecht3D
+#### Data Importeren in Nederland3D en Utrecht3D
 
 Netherlands3D accepteerd een dataset of link in "GeoJSON of WFS formaat" ([Netherlands3D](https://netherlands3d.eu/#wat-is-netherlands3d)). En de "Gebouwen kleuren" functie in Netherlands3D ...
 
@@ -296,6 +296,10 @@ Helaas is hier geen voorbeeld beschikbaar van wat de data format kan zijn. Als i
 | 123456789101238 | 9DBA3A   |
 
 Utrecht3D geeft een concreet voorbeeld, waaruit blijkt dat de kolom naam "BAG_ID" en of "Kleurcode"/"Kenmerk" mogelijk zijn. Ook is Utrecht3D flexiber door de optie te geven om een kolom met een andere naam te kiezen voor zowel het BAG-pand id als een kenmerk (voor het verloop van kleur) of direct een kleurcode.
+
+#### Netherlands3D en Google RealityMesh
+
+Netherlands3D heeft ook een ingebouwde functionaliteit om een "Google RealityMesh" (i.e., 3D model van satelietbeelden) toe te voegen. In het instellingen menu word vermeld dat je een API key moet aanvragen bij google. Op 11 Februari 2025 is deze functionaliteit nog in beta, oftewel nog in ontwikkeling. Helaas is hier geen uitgebreide documentatie over beschikbaar. Eerst ga je naar de website [https://developers.google.com/maps/documentation/tile/3d-tiles/](https://developers.google.com/maps/documentation/tile/3d-tiles/), waarna drukt op "get started". Daarna kan je voor 91 dagen een gratis account krijgen voor het gebruik van de APIs, waarbij je wel je creditcard gegevens moet invullen. Zodra je dat hebt gedaan druk je in het linkerpaneel op "APIs & Services" en dan druk je bij "Map Tiles API" op "enable". Zodra je dit hebt gedaan, druk je bij het linkerpaneel op "Keys & Credentials", waarna je vervolgens bij de al gecreerde API key drukt op de drie puntjes en dan op "edit API key". Vervolgens kan je of de API restrictions uit doen, of restriction gebruiken met de "Map Tiles API" geselecteerd. Daarna druk je op save, druk je op show key en kopieer je de key. Nu gaan we naar Netherlands3D, waar we op "lagen" drukken in het linkerpaneel, en dan op het plusje drukken onderaan. Dan drukken we op "Fotorealistische Wereld". Dan opent rechtsboven een menu, wat we veranderen in een enkele entry. Vervolgens plakken we hier de API key in en drukken we op "bevestigen". Nu zal de "Google RealityMesh" laag worden toegevoegd aan Netherlands3D. Hierbij is het opvallend dat dit erg lang duurt en dat de kwaliteit van de 3D beelden verschilt per plek en redelijk laag is zodra je ver genoeg inzoomed. Bovendien crashed de website ook regelmatig, waarna je de pagina weer moet laden en de laag weer moet toevoegen. Hierbij is het belangrijk om te vermelden dat dit om een beta gaat, en dat deze problemen eventueel opgelost kunnen worden in toekomstige versies.
 
 ##### Dataset 1: Kleurcode voor Vooral Mannen of Vrouwen
 
@@ -420,6 +424,8 @@ Deze kaart bevat informatie over 25 voorzieningen in de wijk 02 Noordwest, waaro
 \newpage
 
 ## Bijlage 1: CBS Data - Hoe groot is de doelgroep? {#sec-bijlage1}
+
+Dit betreft een bijlage waarin ik een schatting heb gemaakt van de grootte van de doelgroep in de wijk Zuilen in 2024. Deze schattingen bleken overbodig, aangezien de deze informatie beschikbaar is in de data van de gemeente Utrecht. 
 
 De doelgroep bestaat uit meisjes in de wijk Zuilen. Op basis van [een kaart](https://www.utrecht.nl/fileadmin/uploads/documenten/bestuur-en-organisatie/publicaties/onderzoek-en-cijfers/indeling-wijken-buurten-straten/2017-07-Kaart-Utrecht-met-wijk-subwijk-buurt-en-subbuurtindeling.pdf) van de gemeente Utrecht heb ik bevestigd dat de wijk Zuilen uit 7 Buurten bestaat. Met behulp van deze informatie en de CBS data kunnen we een inschatting maken van de groote van de doelgroep in 2024 ([Kerncijfers wijken en buurten](https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/wijk-en-buurtstatistieken); zie @tbl-doelgroep_grootte2).
 
